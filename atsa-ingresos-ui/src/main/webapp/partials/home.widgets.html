@@ -1,0 +1,50 @@
+<div class="col-md-3 col-sm-6 col-xs-12" ng-class="{hide: !(userHasPermission('HIJOS_EVAL_VER_RECIBIDOS')
+                || userHasPermission('CURSOS_EVAL_VER_REGISTRADOS')) }">
+    <div class="direct_info black_20_bg">
+        <div class="direct_info_header black_10_bg">
+            <div class="icon_notif">1</div>
+        </div>
+        <div class="direct_info_body" >
+            <label class="col-md-6">{{'home.widget.examenes' | translate}}</label>
+            <a href="" class="col-md-3 btn-view" ng-class="{hide: !isActiveRole('ALUMNO')}" ng-click="verExamenes(userProfile);"></a>
+            <a href="" class="col-md-3 btn-inbox"></a>
+        </div>
+    </div>
+</div>
+<div class="col-md-3 col-sm-6 col-xs-12" ng-class="{hide: !(userHasPermission('HIJOS_TRABAJOS') || userHasPermission('CURSOS_TRABAJOS')) }">
+    <div class="direct_info black_20_bg">
+        <div class="direct_info_header black_10_bg">
+            <div class="icon_notif">1</div>
+        </div>
+        <div class="direct_info_body ">
+            <label class="col-md-6">{{'home.widget.trabajos' | translate}}</label>
+            <a href="" class="col-md-3 btn-view"></a>
+            <a href="" class="col-md-3 btn-inbox"></a>
+        </div>
+    </div>
+</div>
+<div class="col-md-3 col-sm-6 col-xs-12" ng-class="{hide: !(userHasPermission('HIJOS_INFORMES_VER_RECIBIDOS')
+        || userHasPermission('CURSOS_INFORMES_VER_REGISTRADOS')) }">
+    <div class="direct_info black_20_bg">
+        <div class="direct_info_header black_10_bg">
+            <div class="icon_notif">1</div>
+        </div>
+        <div class="direct_info_body ">
+            <label class="col-md-6">{{'home.widget.informes' | translate}}</label>
+            <a href="" ng-click="verInformes(null)" class="col-md-3 btn-view"></a>
+            <a href="" ng-click="nuevoInforme()" class="col-md-3 btn-inbox"></a>
+        </div>
+    </div>
+</div>
+<div class="col-md-3 col-sm-6 col-xs-12" ng-class="{hide: !(userHasPermission('CITAS') || userHasPermission('CITAS')) }">
+    <div class="direct_info black_20_bg">
+        <div class="direct_info_header black_10_bg">
+            <div class="icon_notif">1</div>
+        </div>
+        <div class="direct_info_body " >
+            <label class="col-md-6">{{'home.widget.citas' | translate}}</label>
+            <a href="" class="col-md-3 btn-inbox"></a>
+            <a href="" class="col-md-3 btn-bell"></a>
+        </div>
+    </div>
+</div>

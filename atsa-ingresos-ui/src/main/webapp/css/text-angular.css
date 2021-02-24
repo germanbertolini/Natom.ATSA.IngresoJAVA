@@ -1,0 +1,7 @@
+.ta-editor {
+  min-height: 100px !important;
+  height: auto !important;
+  overflow: auto !important;
+  font-family: inherit !important;
+  font-size: 100% !important;
+}

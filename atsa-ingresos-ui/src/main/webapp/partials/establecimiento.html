@@ -1,0 +1,89 @@
+<div ng-controller="EstablecimientoController">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title" id="myModalLabel">Establecimiento</h4>
+		</div>
+		<div class="modal-body">
+			<form name="establecimientoForm" id="establecimientoForm" ng-submit="establecimientoForm.$valid && agregarEstablecimiento()" novalidate>
+				<div class="row">
+					<div class="form-group col-sm-12">
+						<label for="establecimiento-nombre">Nombre</label>
+						<input id="establecimiento-nombre" name="establecimiento-nombre" ng-model="establecimiento.nombre" class="form-control" required />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-codigo">Código</label>
+						<input id="establecimiento-codigo" name="establecimiento-codigo" ng-model="establecimiento.codigo" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-sucursal">Sucursal</label>
+						<input type="number" id="establecimiento-sucursal" name="establecimiento-sucursal" ng-model="establecimiento.numeroSucursal" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-cuit">CUIT</label>
+						<input id="establecimiento-cuit" name="establecimiento-cuit" ng-model="establecimiento.cuit" class="form-control" required />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-calle">Calle</label>
+						<input id="establecimiento-calle" name="establecimiento-calle" ng-model="establecimiento.calle" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-numero">Numero</label>
+						<input type="number" id="establecimiento-numero" name="establecimiento-numero" ng-model="establecimiento.numero" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-localidad">Localidad</label>
+						<input id="establecimiento-localidad" name="establecimiento-localidad" ng-model="establecimiento.localidad" class="form-control" required />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-codigoPostal">Código postal</label>
+						<input id="establecimiento-codigoPostal" name="establecimiento-codigoPostal" ng-model="establecimiento.codigoPostal" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-partido">Partido</label>
+						<input id="establecimiento-partido" name="establecimiento-partido" ng-model="establecimiento.partido" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="establecimiento-telefono">Teléfono</label>
+						<input id="establecimiento-telefono" name="establecimiento-telefono" ng-model="establecimiento.telefono" class="form-control" required />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-12">
+						<label for="establecimiento-notas">Nota</label>
+						<textarea id="establecimiento-notas" name="establecimiento-notas" ng-model="establecimiento.notas" class="form-control">
+						</textarea>
+					</div>
+				</div>
+				
+				<div class="row" ng-show="user.roles.Aprobador">
+					<div class="form-group col-sm-12">
+						<label for="establecimiento-verificado">Verificado</label>
+						<input type="checkbox" ng-model="establecimiento.verificado"/>
+					</div>
+				</div>
+				
+				<div class="row" ng-show="user.roles.Aprobador">
+					<div class="form-group col-sm-12">
+						<label for="establecimiento-activo">Activo</label>
+						<input type="checkbox" ng-model="establecimiento.activo"/>
+					</div>
+				</div>
+			
+				<button type="button" data-dismiss="modal" class="btn btn-default" ng-disabled="establecimientoForm.$invalid" ng-click="guardar();">
+					Guardar
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

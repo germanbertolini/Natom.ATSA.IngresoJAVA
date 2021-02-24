@@ -1,0 +1,35 @@
+1) Acceder al Servidor productivo de ATSA con AnyDesk:
+ * Usuario: 340140696
+ * Clave: Azsxdc123
+
+2) Identificarnos en el servidor, con:
+ * Usuario: Marcos (default)
+ * Clave: 74108520
+
+3) Habilitar Manager del tomcat. Para ello, descomentaremos los tags en el archivo tomcat-users.xml:
+ * sudo nano /var/lib/tomcat7/conf/tomcat-users.xml
+ *    -descomentar-
+ *    Ctrl + O (guardar)
+ *    Ctrl + X (salir)
+ * sudo service tomcat7 restart
+
+4) Desde el servidor, dirigirnos a http://localhost:8080/manager/html y acceder con:
+ * Usuario: admin
+ * Clave: 74108520
+
+5) Buildear el proyecto con NetBeans y transferir a /home/marcos/NaTom los .war
+
+6) En el manager del TomCat, ir a "Archivo WAR a desplegar" y seleccionar el .war. Luego darle a "Desplegar".
+
+7) Corroborar que haya quedado corriendo OK:
+> DESDE SERVER: http://localhost:8080/atsa-ingresos-ui-new/#!/login
+> DESDE INTRANET: https://192.168.0.30:844/atsa-ingresos-ui-new/#!/login
+ * Usuario: atsacontaduria@speedy.com.ar
+ * Clave: password
+
+8) Volvemos a deshabilitar Manager del tomcat:
+* sudo nano /var/lib/tomcat7/conf/tomcat-users.xml
+ *    -comentar-
+ *    Ctrl + O (guardar)
+ *    Ctrl + X (salir)
+ * sudo service tomcat7 restart

@@ -1,0 +1,17 @@
+<div ng-controller="RechazarTramiteController">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title" id="myModalLabel">Rechazar trámite: {{ tramite.tipo.nombre }}</h4>
+		</div>
+		<div class="modal-body">
+			<label>Motivo de rechazo</label>
+			<textarea rows="5" style="width:100%;" ng-model="nota">
+			</textarea>
+			
+			<button type="button" data-dismiss="modal" class="btn btn-default" ng-disabled="familiarForm.$invalid" ng-click="guardar();">
+				Rechazar
+			</button>
+		</div>
+	</div>
+</div>

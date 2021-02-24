@@ -1,0 +1,25 @@
+<div ng-controller="RechazarTramiteController">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<h4 class="modal-title" id="myModalLabel">Rechazar trámite: {{ tramite.tipo.nombre }}</h4>
+		</div>
+		<div class="modal-body">
+			<form name="bajaForm">
+				<label>Motivo de baja</label>
+				
+				<select id="nacionalidad" 
+       				name="motivo" 
+       				ng-model="motivo" 
+       				class="form-control" 
+       				ng-options="tipoBaja as tipoBaja.nombre for tipoBaja in tiposBaja track by tipoBaja.id"
+       				required>
+       			</select>
+				
+				<button type="button" data-dismiss="modal" class="btn btn-default" ng-disabled="bajaForm.$invalid" ng-click="close(motivo);">
+					Aceptar
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

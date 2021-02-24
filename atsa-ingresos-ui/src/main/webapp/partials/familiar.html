@@ -1,0 +1,160 @@
+<div ng-controller="FamiliarController">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<div class="row">
+				<div class="col-sm-7">
+					<h4 class="modal-title" id="myModalLabel">Familiar</h4>
+				</div>
+				<div class="col-sm-2">
+					<a href="/atsa-ingresos-core-new/rest/carnetservice/getCarnet?id={{familiar.familiar.id}}" 
+		             	class="btn btn-default btn-xs" 
+		             	ng-disabled="!familiar.familiar.id"
+		             	ng-show="familiar.familiar.id && familiar.familiar.versionCarnet > 0">
+		             	Imprimir carnet
+		             </a>
+	             </div>
+				<div class="col-sm-2">
+					<a href="#" 
+		             	class="btn btn-danger btn-xs" 
+		             	ng-disabled="!familiar.familiar.id"
+		             	ng-show="familiar.familiar.id"
+		             	ng-click="generarCarnetFamiliar()">
+		             	Generar carnet
+		             </a>
+	             </div>
+             </div>
+		</div>
+		<div class="modal-body">
+			<form name="familiarForm" id="familiarForm" ng-submit="familiarForm.$valid && agregarFamiliar()" novalidate>
+			<fieldset ng-disabled="!modoEdicion">
+				<div class="row">
+					<div class="form-group col-sm-5">
+						<label for="familiar-nombre">Nombre</label>
+						<input id="familiar-nombre" name="familiar-nombre" ng-model="familiar.familiar.nombres" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="familiar-apellido">Apellido</label>
+						<input id="familiar-apellido" name="familiar-apellido" ng-model="familiar.familiar.apellidos" class="form-control" required />
+					</div>
+					<div class="form-group col-sm-3">
+						<label for="familiar-sexo">Sexo</label>
+						<select id="familiar-sexo" 
+							name="familiar-sexo" 
+							ng-model="familiar.familiar.sexo" 
+							class="form-control"
+							required >
+							<option value="MASCULINO">Masculino</option>
+               				<option value="FEMENINO">Femenino</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-4">
+						<label for="familiar-fecha-nacimiento">Fecha de nacimiento</label>
+						<div class="dropdown pull-left">
+               				<input id="familiar-fecha-nacimiento" 
+           						type="date" 
+           						class="form-control" 
+           						ng-model="familiar.familiar.fechaNacimientoString" 
+                               	ng-required="true" />
+                       	</div>
+						
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="familiar-relacion">Relación</label>
+						<select id="familiar-relacion" 
+							name="familiar-relacion" 
+							ng-model="familiar.relacion" 
+							class="form-control" 
+							ng-options="relacion as relacion.nombre for relacion in parameters.tiposRelaciones track by relacion.id"
+							required>
+						</select>
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="familiar-numero-documento">Número de Documento</label>
+						<input type="text" id="familiar-numero-documento" name="familiar-numero-documento" ng-model="familiar.familiar.documento" class="form-control" required ng-minlength="8" ng-change="validateDNI()"/>
+					</div>
+				</div>
+				
+				
+				</fieldset>
+				<h3>Archivos adjuntos</h3>
+                
+                	
+	                	<div flow-init="{
+	                			target: '/atsa-ingresos-core-new/rest/afiliadosservice/uploadFamiliar', 
+	                			testChunks:false, 
+	                			uploadMethod: 'POST',
+	                			query: fileUploadQuery
+	                		}" flow-name="uploader.flow">
+	                		<div class="row">
+	                			<div class="col-sm-2">
+	                				<span class="btn btn-primary" flow-btn ng-disabled="!familiar.id || !modoEdicion">Buscar archivo</span>
+	                			</div>
+	                			<div class="col-sm-10" ng-show="familiar.id && modoEdicion">
+			                		<div class="upload-drop-zone" flow-drop>
+									    Arrastrar archivos aquí
+									</div>
+	                			</div>
+	                		</div>
+	                		<table class="table table-stripped">
+		                        <thead>
+		                            <tr>
+		                                <th class="col-sm-4">Tipo</th>
+		                                <th class="col-sm-6">Nombre de archivo</th>
+		                                <th class="col-sm-2">Acción</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                            <tr ng-repeat="file in uploader.flow.files">
+		                                <td>
+		                                	<select id="tipo-de-adjunto" 
+		                                		name="tipo-de-adjunto" 
+		                                		ng-model="file.tipoDocumento" 
+		                                		class="form-control"
+		                                		ng-options="tipoDocumento as tipoDocumento.nombre for tipoDocumento in parameters.tipoDocumentosArchivados" 
+		                                		required>
+				                			</select>
+		                                </td>
+		                                <td>{{file.name}}</td>
+		                                <td>
+		                                    <p class="table-buttons">
+		                                        <a class="btn btn-danger btn-xs" href="#" title="Eliminar" ng-click="removeFileToUpload(file);">
+		                                        	<span class="glyphicon glyphicon-remove"></span>
+		                                        </a>
+		                                    </p>
+		                                </td>
+		                            </tr>
+		                             <tr ng-repeat="documento in familiar.documentos">
+		                                <td>
+		                                	{{ documento.tipo.nombre }}
+		                                </td>
+		                                <td>{{documento.archivo}}</td>
+		                                <td>
+		                                    <p class="table-buttons">
+		                                        <a class="btn btn-success btn-xs" href="/atsa-ingresos-core-new/rest/afiliadosservice/download?id={{ documento.id }}" title="Descargar">
+		                                        	<span class="glyphicon glyphicon-download"></span>
+		                                        </a>
+		                                        <a class="btn btn-danger btn-xs" href="#" title="Eliminar" ng-disabled="!familiar.id || !modoEdicion" ng-click="eliminarDocumento(documento);">
+		                                        	<span class="glyphicon glyphicon-remove"></span>
+		                                        </a>
+		                                    </p>
+		                                </td>
+		                             </tr>
+		                        </tbody>
+		                    </table>
+	                	</div>
+	                    
+	            	
+				
+				
+				<button type="button" data-dismiss="modal" class="btn btn-default" ng-disabled="familiarForm.$invalid" ng-click="guardar();">
+					Guardar
+				</button>
+				<!-- <button type="button" class="btn btn-default" ng-disabled="archivoAdjuntoFamiliarForm.$invalid">Imprimir carnet</button> -->
+			</form>
+		</div>
+	</div>
+</div>

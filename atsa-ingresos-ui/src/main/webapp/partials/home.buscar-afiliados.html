@@ -1,0 +1,80 @@
+<div ng-controller="AfiliadosController" ng-init="start();">
+	<div class="container-fluid">
+	    <h2>Búsqueda de afilados</h2>
+	    <section>
+	        <ul class="nav nav-pills">
+				<li ng-class="{ active:isMetodoBusquedaSeleccionado('manual') }"> 
+					<a href="#" ng-click="busquedaSeleccionarMetodo('manual')">Manual</a>
+				</li>
+				<li ng-class="{ active:isMetodoBusquedaSeleccionado('qr') }">
+					<a href="#" ng-click="busquedaSeleccionarMetodo('qr')">Por QR</a>
+				</li>
+			</ul>
+            <form class="form-search" ng-submit="buscar()" ng-show="isMetodoBusquedaSeleccionado('manual')">
+                <div class="row">
+                    <div class="form-group col-sm-7">
+                         <div class="input-group">
+                            <input type="text" class="form-control" ng-model="campoBusqueda" id="campoBusqueda" name="campoBusqueda">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <select class="form-control" ng-model="tipoDato" id="tipoDato" name="tipoDato">
+                            <option value="cuil">CUIL</option>
+                            <option value="documento-numero">Nro. de documento</option>
+                            <option value="numero-afiliado">Nro. de afiliado</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <form class="form-search" ng-show="isMetodoBusquedaSeleccionado('qr')">
+            	<div class="alert alert-danger" ng-show="qrError.length">
+            		{{ qrError }}
+            	</div>
+            	<div class="center-block" id="reader" style="width:300px;height:250px">
+ 				</div>
+            </form>
+            <table class="table table-stripped" ng-show="busquedaVisible">
+                <thead>
+                    <tr>
+                        <th class="col-sm-3">Nombre</th>
+                        <th class="col-sm-2">Apellido</th>
+                        <th class="col-sm-2">Tipo</th>
+                        <th class="col-sm-2">CUIL</th>
+                        <th class="col-sm-1">Nro. afiliado</th>
+                        <th class="col-sm-1">Tipo</th>
+                        <th class="col-sm-1">Doc.</th>
+                        <th class="col-sm-1">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<tr ng-hide="afiliados.length">
+                		<td colspan="7">No se encuentran afiliados</td>
+                	</tr>
+                    <tr ng-repeat="afiliado in afiliados">
+                        <td>{{ afiliado.nombres }}</td>
+                        <td>{{ afiliado.apellidos }}</td>
+                        <td>
+                        	<span ng-show="afiliado.tipoPersona == 'AFILIADO'">TITULAR</span>
+                        	<span ng-show="afiliado.tipoPersona == 'AFILIADO_PASIVO'">JUBILADO VITALICIO</span>
+                        	<span ng-show="afiliado.tipoPersona == 'FAMILIAR'">GRUPO FAMILIAR</span>
+                        </td>
+                        <td>{{ afiliado.cuil }}</td>
+                        <td>{{ afiliado.numeroAfiliado }}</td>
+                        <td>{{ afiliado.documentoTipo }}</td>
+                        <td>{{ afiliado.documento }}</td>
+                        <td>
+                            <p class="table-buttons">
+                                <a class="btn btn-primary btn-xs" href="javascript:void(0);" ng-click="editarAfiliado(afiliado)"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <!-- a class="btn btn-danger btn-xs" href="#"><span class="glyphicon glyphicon-remove"></span></a -->
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </section>
+    </div>
+</div>

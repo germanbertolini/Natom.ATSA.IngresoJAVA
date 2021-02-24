@@ -1,0 +1,151 @@
+<div clas="container" ng-init="init();" style="max-width: 800px;margin: auto;">
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col-md-3">
+				<img style="width:160px; height:120px" src="/atsa-ingresos-core-new/rest/afiliadosservice/foto?id={{ afiliado.id }}"/>
+			</div>
+			<div class="col-md-9">
+				<h1>{{afiliado.nombres}} {{afiliado.apellidos}}</h1>
+				<p class="lead">
+					CUIL: {{afiliado.cuil}}
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12 blog-main">
+			<div class="blog-post">
+				<h2 class="blog-post-title">Datos personales</h2>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>Nombres:</label> <span>{{afiliado.nombres}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Apellidos:</label> <span>{{afiliado.apellidos}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>DNI:</label> <span>{{afiliado.documento}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>Fecha de nacimiento:</label> <span>{{afiliado.fechaNacimientoString | date : 'dd/MM/yyyy'}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Estado civil:</label> <span>{{afiliado.estadoCivil}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Nacionalidad:</label> <span>{{afiliado.nacionalidad.descripcion}}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>Sexo:</label> <span>{{afiliado.sexo}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Profesion:</label> <span>{{afiliado.profesion}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Teléfono:</label> <span>{{afiliado.telefono}}</span>
+					</div>
+				</div>
+				<hr/>
+				<h4 class="blog-post-title">Domicilio</h4>
+				<div class="row">
+					<div class="col-sm-4">
+						<label>Dirección:</label> <span>{{afiliado.domicilio}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Localidad:</label> <span>{{afiliado.localidad}}</span>
+					</div>
+					<div class="col-sm-4">
+						<label>Código Postal:</label> <span>{{afiliado.codigoPostal}}</span>
+					</div>
+				</div>
+				<div ng-show="estudios.length">
+					<hr/>
+					<h4 class="blog-post-title">Estudios</h4>
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th>Nivel</th>
+								<th>Establecimiento</th>
+								<th>Titulo</th>
+								<th>Terminado</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="estudio in estudios">
+								<td>{{estudio.nivel}}</td>
+								<td>{{estudio.establecimiento}}</td>
+								<td>{{estudio.titulo}}</td>
+								<td>
+									<span ng-show="estudio.terminado">Si</span>
+									<span ng-hide="estudio.terminado">No</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div ng-show="familiares.length">
+					<hr/>
+					<h4 class="blog-post-title">Familiares</h4>
+					<table class="table table-stripped">
+	        	        <thead>
+	        	            <tr>
+	        	                <th>Nombre</th>
+	        	                <th>Apellido</th>
+	        	                <th>Fecha nac</th>
+	        	                <th>Tipo</th>
+	        	                <th>Documento</th>
+	        	            </tr>
+	        	        </thead>
+	        	        <tbody>
+	            	        <tr ng-repeat="familiar in familiares">
+	            	            <td>{{familiar.familiar.nombres}}</td>
+	            	            <td>{{familiar.familiar.apellidos}}</td>
+	            	            <td>{{familiar.familiar.fechaNacimientoString | date : 'dd/MM/yyyy'}}</td>
+	            	            <td>{{familiar.relacion.nombre}}</td>
+	            	            <td>{{familiar.familiar.documento}}</td>
+	            	        </tr>
+	        	        </tbody>
+	        	    </table>
+				</div>
+				<div ng-show="tramites.length">
+					<hr/>
+					<h4 class="blog-post-title">Trámites</h4>
+					<table class="table table-stripped table-texto-truncado">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                                <th>Creado</th>
+                                <th>Por</th>
+                                <th>Datos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tramite in tramites | orderBy:'fechaSolicitud':true">
+                                <td class="td-texto-truncado" title="Cambio de Datos Registrales">{{tramite.tipo.nombre}}</td>
+                                <td class="td-texto-truncado">{{tramite.estado.nombre}}</td>
+                                <td>{{tramite.fechaSolicitudString | date : 'dd/MM/yyyy'}}</td>
+                                <td>{{tramite.usuario.nombres}} {{tramite.usuario.apellidos}}</td>
+                                <td class="td-texto-truncado">
+                                	<div ng-include="'partials/tramites/' + tramite.tipo.codigo + '.html'"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</div>
+</div>

@@ -1,0 +1,121 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+
+<html lang="en" data-ng-app="atsaApp">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>ATSA - Afiliaciones</title>
+        <meta name="description" content="">
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel='stylesheet' href='css/footer.css'>
+        <link rel='stylesheet' href='css/autocomplete.css'>
+        
+        <!--  meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/spinner.css">
+		<link rel="stylesheet" href="css/login.css">        
+        <link rel="stylesheet" href="css/bs_ovr.css">
+        <link rel="stylesheet" href="css/helpers.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/animations.css">
+        <link rel="stylesheet" href="css/popovers.css">
+        <link rel="stylesheet" href="css/calendar.css">
+        <link rel="stylesheet" href="css/informes.css">
+        <link rel="stylesheet" href="css/examenes.css">
+        <link rel="stylesheet" href="css/asistencias.css">
+        <link rel="stylesheet" href="css/modals.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/dropzone.css">
+        <link rel="stylesheet" href="css/text-angular.css">
+    	<link rel='stylesheet' href='css/loading-bar.css' -->
+    	
+        <!--[if lt IE 9]>
+            <script src="js/vendor/html5-3.6-respond-1.1.0.min.js"></script>
+        <![endif]-->
+</head>
+
+<body flow-prevent-drop>
+
+    <div ui-view></div>
+
+
+    <!-- AngularJS - In production use Google CDN js files -->
+    <script src="js/lib/angular/angular.js"></script>
+    <script src="js/lib/angular/angular-animate.js"></script>
+    <script src="js/lib/angular/angular-resource.js"></script>
+    <script src="js/lib/angular/angular-route.js"></script>
+    <script src="js/lib/angular/angular-cookies.js"></script>
+	<script src="js/lib/angular/textAngular-sanitize.min.js"></script>
+	<script src="js/lib/angular/textAngular.min.js"></script>
+	
+    <!-- Project Libs -->
+    <script src="js/lib/bootstrap/ui-bootstrap-tpls-0.10.0.min.js"></script>
+	<script src="js/lib/jquery/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+	<script src="js/lib/bootstrap/bootstrap.min.js"></script>
+	
+	<!-- Componentes -->
+	<script type="text/javascript" src="js/lib/components/dropzone.js"></script>
+	<script src="js/lib/components/loading-bar.js"></script>
+	
+    <!-- Translation support for i18n -->
+    <!--TODO reemplazar por minified in prod -->
+    <script src="js/lib/angular-translate/angular-translate.js"></script>
+    <script src="js/lib/angular-translate/angular-translate-loader-static-files.js"></script>
+
+    <!-- UI-Router -->
+    <script src="js/lib/angular-ui-router/angular-ui-router.js"></script>
+
+    <!-- Spinner -->
+    <script src="js/lib/angular-spinner/spin.min.js"></script>
+    <script src="js/lib/angular-spinner/angular-spinner.min.js"></script>
+
+    <!-- File upload -->
+    <script src="js/lib/angular-file-upload/ng-flow-standalone.min.js"></script>
+    <script src="js/lib/angular-file-upload/ng-flow.min.js"></script>
+    
+    <!-- Camara -->
+    <script src="js/lib/angular-camera/angular-camera.min.js"></script>
+    
+    <!-- QR -->
+    <script src="js/lib/html5-qrcode.min.js"></script>
+    <!-- Autocomplete -->
+    <script src="js/lib/autocomplete.js"></script>
+
+    <!-- Application configuration -->
+    <script src="js/app/app.js"></script>
+    
+    <!-- Home Page -->
+    <script src="js/app/controllers/home-controllers.js"></script>
+    <script src="js/app/services/home-services.js"></script>
+    
+    <!-- Login y seguridad -->
+    <script src="js/app/controllers/login-controllers.js"></script>
+    <script src="js/app/services/login-services.js"></script>
+    
+    <!-- Afiliados -->
+    <script src="js/app/controllers/afiliados-controllers.js"></script>
+    <script src="js/app/services/afiliados-services.js"></script>
+    
+    <!-- Establecimientos -->
+    <script src="js/app/controllers/establecimientos-controllers.js"></script>
+    <script src="js/app/services/establecimientos-services.js"></script>
+    
+    <!-- Ver Afiliado -->
+    <script src="js/app/controllers/ver-afiliado-controllers.js"></script>
+    
+    <!-- QR Afiliado -->
+    <script src="js/app/controllers/qr-afiliado-controllers.js"></script>
+    
+    <!-- Main Page -->
+    <script src="js/app/controllers/main-controllers.js"></script>
+    
+    <!-- TODO: Varios - Retocar -->
+    <script src="js/app/filters.js"></script>
+    <script src="js/app/directives.js"></script>
+
+</body>
+</html>

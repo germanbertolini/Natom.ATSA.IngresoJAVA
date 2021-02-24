@@ -1,0 +1,29 @@
+<div class="container-fluid">
+	<div class="header_row">
+        <div class="col-md-4 col-xs-12 col-sm-12 clearfix">
+            <div id="show_nav" class="general_menu pull-left" ng-click="navBarShowHide()"></div>
+            <div class="profile-picture big-profile-picture pull-left">
+                <img width="74" alt="{{user.userName}}" ng-src="{{userProfile.pictUrl}}" role="presentation">
+            </div>
+            <div class="dropdown pull-left">
+                <a id="ddUser" class="user_name pull-left" role="button" data-toggle="dropdown">{{user.firstName}} {{user.lastName}}</a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="ddUser">
+                    <li><a href="">{{'home.header.profile_submenu.datos_del_usuario' | translate}}</a></li>
+                    <li><a href="">{{'home.header.profile_submenu.opciones' | translate}}</a></li>
+                    <li><a href="" ng-click="logout()">{{'home.header.profile_submenu.logout' | translate}}</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <!-- /container de user data -->
+        
+        <!-- ALERTAS -->
+		<div class="iconos_logo col-md-4 col-xs-6 col-sm-4" ng-include="'partials/home.header.alertas.html'"></div>
+		<!-- /ALERTAS -->
+		
+   		<div class="college_logo col-md-4 col-xs-6 col-sm-5">
+   			<a href="http://{{userProfile.institution.website}}"><img  alt="{{userProfile.institution.descripcion}}" ng-src="{{userProfile.institution.urlLogo}}" role="presentation"></a>
+   		</div>
+	</div>
+	<!-- /row del header -->
+</div>

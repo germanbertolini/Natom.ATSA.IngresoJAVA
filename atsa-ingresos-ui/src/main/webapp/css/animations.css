@@ -1,0 +1,235 @@
+.main_content_show_nav {
+	left: 250px;
+	/*-webkit-transition: left 0.5s ease-in-out;*/
+}
+
+.main_content_hide_nav {
+	left: 7%;
+	width: 100%;
+	/*-webkit-transition: left 0.5s ease-in-out;*/
+}
+
+.nav_bar_hide {
+	left: -250px;
+	/*-webkit-transition: left 0.5s ease-in-out;*/
+}
+
+.nav_bar_show {
+	left: 0px;
+	/*-webkit-transition: left 0.5s ease-in-out;*/
+}
+
+.header_row_show {
+	min-height: 95px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-bottom: 10px;
+	/* width: 108%; */
+}
+
+.header_row_hide {
+	padding-left: 50px;
+	width: 135%!important;
+	margin-left: -14%!important;
+	min-width: 930px;
+}
+
+.footer_show{
+	/* width: 150%; 
+	margin-top: 4px;
+	margin-left: -15px;
+	margin-right: -37px;
+	height: 41px; */
+}
+
+.footer_hide{
+	width: 134%!important;
+	margin-top: 4px;
+	margin-left: -14%;
+	min-width: 930px;
+}
+
+/* clase auxiliar para la nav */
+.item-closed {
+	display: none;
+}
+
+/* estilos de los botones de direct info */
+.direct_info {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	height: 73px;
+	background-color: rgba(0,0,0,.20);
+}
+
+.direct_info label {
+	float: left;
+	color: white;
+	font-weight: 400;
+	line-height: 30px;
+	width: 90px;
+}
+
+.direct_info_header {
+	height: 20px;
+	background-color: rgba(0,0,0,.1);
+}
+
+.direct_info_body {
+	height: 53px;
+	margin: 10px 6px 10px 0px;
+	/*padding: 20px 10px 0px 10px;*/
+}
+
+/* boton con icono de bandeja de entrada */
+.btn-inbox {
+	background:url(../img/sprite2.png) no-repeat 0px 0px;
+	width: 26px;
+	height: 25px;
+	display: block;
+	float: right;
+	margin-left: 15px;
+}
+
+/* boton con icono de ojo */
+.btn-view {
+	background:url(../img/sprite2.png) no-repeat 0px -25px;
+	width: 26px;
+	height: 25px;
+	display: block;
+	float: right;
+	margin: 1% 0% 0% 3%;
+}
+/* boton con icono de ojo */
+.btn-bell {
+	background:url(../img/alert_top.png) no-repeat 0px 0px;
+	width: 26px;
+	height: 25px;
+	display: block;
+	float: right;
+	margin: 1% -1% 0% 2%;
+}
+/* fin estilos direct info */
+
+/* estilos de comunications */
+.comunications {
+	/*height:443px;*/
+	display: block;
+	padding-left: 8px;
+	padding-right: 11px;
+	margin: 0% -2% 5% 1%;
+}
+.comunications_header { 
+	min-height:75px;
+	padding: -1px 0px 10px 10px;
+	padding-bottom: 10px;
+}
+
+.com_header_icon {
+	background:url(../img/ico_comunicados.png) no-repeat 0 0;
+	height:27px;
+	padding-left: 40px;
+	line-height: 29px;
+	float: left;
+	margin: 29px 0px -16px 10px;
+}
+
+.comunications_header label {
+	font-size: 1.2857em;
+	font-weight: 400;
+	margin: 26px 0px -14px -23px;
+	color: rgb(255,255,255);
+	color: rgba(255,255,255,.5);
+}
+
+.com_header_link {
+	float: right;
+	text-align: right;
+	color: rgb(255,255,255);
+	color: rgba(255,255,255,.5);
+	font-size: 1.1428em;
+	text-decoration:underline;
+	/*margin: -11px 0px -2px -5px;*/
+	margin: 11px 0px -2px -5px;
+}
+
+.com_header_link:hover {
+	color: rgb(255,255,255);
+	color: rgba(255,255,255,.5);
+	text-decoration:none;
+}
+
+.comunications_body {
+	overflow-y: scroll;
+	max-height: 347px;
+	margin-top: 0px;
+}
+
+.comunication {
+	min-height: 105px;
+	padding-top: 2px;
+	margin-bottom: 4px;
+	background-color: rgba(255,255,255,.40);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7FFFFFFF, endColorstr=#7FFFFFFF);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7FFFFFFF, endColorstr=#7FFFFFFF)";
+	cursor: pointer;
+}
+
+.comunication hr {
+	border-top:1px solid rgb(0,0,0);
+	border-top:1px solid rgba(0,0,0,.5);
+	margin: 5px 0px 5px 0px; 
+}
+
+.comunication:hover {
+	background-color: rgba(255,255,255,.10);
+}
+
+.comunication_sender {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-left: 10px;
+	margin-top: 13px;
+}
+
+.comunication_sender img {
+	width: 55px;
+	height: 55px;
+}
+
+.comunication_sender label {
+	font-size: 12px;
+	text-align: center;
+	width: 50px;
+	margin-left: 5px;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.comunication_text {
+	margin-left: 100px;
+	padding: 0px 4px;
+	font-size: 0.9em;
+}
+
+.comunication_text h4 {
+	font-family: 'Roboto';
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.comunication_text p {
+	margin: 0px;
+}
+
+.icon_notif {
+	background: url(../img/notif_circle.png) no-repeat 0px 0px;
+	width: 25px;
+	height: 25px;
+	margin-left: -10px;
+	margin-top: -10px;
+	position: absolute;
+	line-height: 25px;
+	text-align: center;
+}

@@ -1,0 +1,165 @@
+.asistencias_header_icon {
+	background: url(../img/icons/examenes_header_icon.png) no-repeat 0px 0px;
+	width: 32px;
+	height: 32px;
+	margin-right: 10px;
+}
+
+.icon_examenes_num {
+	background: url(../img/icons/25_numero_1.png) no-repeat 0px 0px;
+	width: 26px;
+	height: 25px;
+	margin-right: 10px;
+	margin-top: 5px;
+	color: #000000 !important;
+	text-align: center;
+	line-height: 24px;
+	text-decoration: none !important;
+}
+
+.asistencias_header_search {
+	
+}
+
+div.examenes_examen_new_icon {
+	background: url(../img/icons/12_examenes_1.png) no-repeat 0px 0px;
+	width: 40px;
+	height: 30px;
+	margin-right: 10px;
+}
+
+div.w_derecha_asistencias_icon {
+	background: url(../img/icons/12_examenes_1.png) no-repeat 0px 0px;
+	width: 41px;
+	height: 37px;
+	margin-right: 10px;
+}
+
+.asistencia_docente_detalle {
+	width: 60%;
+	float: left;
+}
+
+.asistencia_docente_detalle label {
+	margin: 0px;
+}
+
+.asistencia_docente_detalle a {
+	text-decoration: underline;
+	color: #333;
+	font-size: .875em;
+}
+
+.asistencia_docente_detalle p {
+	font-size: .875em;
+}
+
+.asistencia_docente_tools {
+	float: right;
+	padding-top: 20px;
+	width: 40%;
+}
+
+.examen_unidad_titulo {
+	text-decoration: underline;
+}
+
+.examen_item {
+	min-height: 50px;
+	background-color: #DEDEDE;
+	padding: 10px 25px 20px 20px;
+	margin-bottom: 5px !important;
+}
+
+.modal_examen_item_head h4 {
+	font-size: 1em;
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+.contenidos_header_icon {
+	background: url(../img/icons/04_contenidos.png) no-repeat 0px 0px;
+	width: 24px;
+	height: 24px;
+	margin-right: 7px;
+}
+
+.materiales_header_icon {
+	background: url(../img/icons/05_material.png) no-repeat 0px 0px;
+	width: 24px;
+	height: 24px;
+	margin-right: 7px;
+}
+
+.examen_attach_icon {
+	background: url(../img/icons/10_adjuntar.png) no-repeat 0px 0px;
+	background-position: right;
+	background-position-x: 100%;
+	background-position-y: 50%;
+	color: #333;
+	text-decoration: underline;
+	text-align: left;
+	line-height: 21px;
+	font-size: .8751em;
+	height: 24px;
+	padding-right: 28px;
+	display: block;
+	margin-top: 10px;
+}
+div.modal_examen_new_icon {
+	background: url(../img/icons/13_exa_modal.png) no-repeat 0px 0px;
+	width: 40px;
+	height: 36px;
+	margin-right: 10px;
+}
+
+.examenes_revision_icon {
+	background: url(../img/icons/10_revision_1.png) no-repeat 0px 0px;
+	height: 32px;
+	width: 32px;
+	margin-left: 15px;
+}
+
+.examenes_save_icon {
+	background: url(../img/icons/11_guardar_1.png) no-repeat 0px 0px;
+	height: 32px;
+	width: 32px;
+	margin-left: 15px;
+}
+
+.examenes_cancel_icon {
+	background: url(../img/icons/09_cancel_1.png) no-repeat 0px 0px;
+	height: 32px;
+	width: 32px;
+	margin-left: 15px;
+}
+
+.examenes_delete_icon {
+	background: url(../img/icons/08_eliminar_1.png) no-repeat 0px 0px;
+	height: 32px;
+	width: 32px;
+	margin-left: 15px;
+}
+
+.examenes_publish_icon {
+	background: url(../img/icons/07_publicar_2.png) no-repeat 0px 0px;
+	height: 32px;
+	width: 32px;
+	margin-left: 15px;
+}
+
+.titulo_inform_alumno {
+	width: 40% !important;
+}
+.ausente_inform_alumno {
+	width: 25% !important;
+}
+.checkbox_inform_alumno {
+	width: 16% !important;
+	background-position: 60px 1px !important;
+	padding-left: 0 !important;
+	margin-left: 0 !important; 
+}
+a.modal_custom_check.checked {
+background: url(../img/icons/informes_custom_check.png) no-repeat 60px -17px !important;
+}

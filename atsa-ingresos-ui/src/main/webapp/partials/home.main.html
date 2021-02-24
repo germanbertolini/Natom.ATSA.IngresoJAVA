@@ -1,0 +1,223 @@
+<div ng-controller="MainController" ng-init="init();">
+
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row" ng-show="porAprobar.length">
+				<div class="col-sm-12">
+					<h4>Trámites pendientes de aprobación</h4>
+					<div style="height: 500px; overflow: auto;">
+						<table class="table table-stripped table-texto-truncado">
+							<thead>
+								<tr>
+									<td>Afiliado</td>
+									<td>Trámite</td>
+									<td>Fecha</td>
+									<td>Usuario</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="tramite in porAprobar"> 
+									<td>
+										<a href="#" ng-click="editarAfiliado(tramite.persona.id)">{{tramite.persona.nombres}} {{tramite.persona.apellidos}}</a>
+									</td>
+									<td>
+										{{ tramite.tipo.nombre }}
+									</td>
+									<td>
+										{{ tramite.fechaSolicitud | date : 'dd/MM/yyyy' }}
+									</td>
+									<td>
+										{{ tramite.usuario.nombres }} {{ tramite.usuario.apellidos }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row" ng-show="porAprobarDocumentos.length">
+				<div class="col-sm-12">
+					<h4>Documentos pendientes de aprobación</h4>
+					<div style="height: 500px; overflow: auto;">
+						<table class="table table-stripped table-texto-truncado">
+							<thead>
+								<tr>
+									<td>Afiliado</td>
+									<td>Trámite</td>
+									<td>Fecha</td>
+									<td>Usuario</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="tramite in porAprobarDocumentos"> 
+									<td>
+										<a href="#" ng-click="editarAfiliado(tramite.persona.id)">{{tramite.persona.nombres}} {{tramite.persona.apellidos}}</a>
+									</td>
+									<td>
+										{{ tramite.tipo.nombre }}
+									</td>
+									<td>
+										{{ tramite.fechaSolicitud | date : 'dd/MM/yyyy' }}
+									</td>
+									<td>
+										{{ tramite.usuario.nombres }} {{ tramite.usuario.apellidos }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Mis trámites aprobados</h4>
+					<div style="height: 500px; overflow: auto;">
+						<table class="table table-stripped table-texto-truncado">
+							<thead>
+								<tr>
+									<td>Afiliado</td>
+									<td>Trámite</td>
+									<td>Fecha</td>
+									<td>Aprobador</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="tramite in aprobadosTramites"> 
+									<td>
+										<a href="#" ng-click="editarAfiliado(tramite.persona.id)">{{tramite.persona.nombres}} {{tramite.persona.apellidos}}</a>
+									</td>
+									<td>
+										{{ tramite.tipo.nombre }}
+									</td>
+									<td>
+										{{ tramite.fechaAprobacion | date : 'dd/MM/yyyy' }}
+									</td>
+									<td>
+										{{ tramite.aprobador.nombres }} {{ tramite.aprobador.apellidos }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Mis documentos aprobados</h4>
+					<div style="height: 500px; overflow: auto;">
+						<table class="table table-stripped table-texto-truncado">
+							<thead>
+								<tr>
+									<td>Afiliado</td>
+									<td>Trámite</td>
+									<td>Fecha</td>
+									<td>Aprobador</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="tramite in aprobadosDocumentos"> 
+									<td>
+										<a href="#" ng-click="editarAfiliado(tramite.persona.id)">{{tramite.persona.nombres}} {{tramite.persona.apellidos}}</a>
+									</td>
+									<td>
+										{{ tramite.tipo.nombre }}
+									</td>
+									<td>
+										{{ tramite.fechaAprobacion | date : 'dd/MM/yyyy' }}
+									</td>
+									<td>
+										{{ tramite.aprobador.nombres }} {{ tramite.aprobador.apellidos }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Mis trámites rechazados</h4>
+					<div style="height: 500px; overflow: auto;">
+						<table class="table table-stripped table-texto-truncado">
+							<thead>
+								<tr>
+									<td>Afiliado</td>
+									<td>Trámite</td>
+									<td>Fecha</td>
+									<td>Aprobador</td>
+									<td>Motivo</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="tramite in rechazadosTramites"> 
+									<td>
+										<a href="#" ng-click="editarAfiliado(tramite.persona.id)">{{tramite.persona.nombres}} {{tramite.persona.apellidos}}</a>
+									</td>
+									<td>
+										{{ tramite.tipo.nombre }}
+									</td>
+									<td>
+										{{ tramite.fechaAprobacion | date : 'dd/MM/yyyy' }}
+									</td>
+									<td>
+										{{ tramite.aprobador.nombres }} {{ tramite.aprobador.apellidos }}
+									</td>
+									<td>
+										{{ tramite.motivoRechazo }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<h4>Mis documentos rechazados</h4>
+					<div style="height: 500px; overflow: auto;">
+						<table class="table table-stripped table-texto-truncado">
+							<thead>
+								<tr>
+									<td>Afiliado</td>
+									<td>Trámite</td>
+									<td>Fecha</td>
+									<td>Aprobador</td>
+									<td>Motivo</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="tramite in rechazadosDocumentos"> 
+									<td>
+										<a href="#" ng-click="editarAfiliado(tramite.persona.id)">{{tramite.persona.nombres}} {{tramite.persona.apellidos}}</a>
+									</td>
+									<td>
+										{{ tramite.tipo.nombre }}
+									</td>
+									<td>
+										{{ tramite.fechaAprobacion | date : 'dd/MM/yyyy' }}
+									</td>
+									<td>
+										{{ tramite.aprobador.nombres }} {{ tramite.aprobador.apellidos }}
+									</td>
+									<td>
+										{{ tramite.motivoRechazo }}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

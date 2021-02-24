@@ -1,0 +1,51 @@
+<div ng-controller="EstablecimientosController" ng-init="init();">
+	<h1>Establecimientos</h1>
+	<input ng-model="nombre" placeholder="nombre"></input>
+	<input ng-model="cuil" placeholder="cuil"></input>
+	<a href="#" ng-click="init()" class="btn btn-default">Buscar</a>
+	<table class="table table-stripped">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Sucursal</th>
+				<th>CUIT</th>
+				<th>Teléfono</th>
+				<th>Verificado</th>
+				<th>Activo</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="establecimiento in establecimientos">
+				<td>{{ establecimiento.nombre }}</td>
+				<td>{{ establecimiento.numeroSucursal }}</td>
+				<td>{{ establecimiento.cuit }}</td>
+				<td>{{ establecimiento.telefono }}</td>
+				<td>
+					<span ng-show="establecimiento.verificado">
+						Si
+					</span>
+					<span ng-hide="establecimiento.verificado">
+						No
+					</span>
+				</td>
+				<td>
+					<span ng-show="establecimiento.activo">
+						Si
+					</span>
+					<span ng-hide="establecimiento.activo">
+						No
+					</span>
+				</td>
+				<td>
+					<a href="javascript:void(0);" class="btn btn-primary btn-xs" ng-click="editarEstablecimiento(establecimiento);">Editar</a>
+					<!-- <a href="javascript:void(0);" class="btn btn-danger btn-xs" ng-click="eliminarEstablecimiento(establecimiento);">Eliminar</a> -->
+				</td>
+			</tr>
+			<tr ng-show="page >= 0">
+				<td colspan="6"><a href="#" ng-click="nextPage()">Traer mas resultados</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="javascript:void(0)" ng-click="editarEstablecimiento();" class="btn btn-primary">Nuevo establecimiento</a>
+</div>

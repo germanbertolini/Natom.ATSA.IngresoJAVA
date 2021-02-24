@@ -1,0 +1,728 @@
+<div data-ng-init="editar()">
+	<div class="container-fluid">
+	    <div class="row">
+	    
+	    <div class="panel panel-primary"> <!-- abro panel interbloque-->	
+		    <div class="panel-heading" >
+				<h3 class="panel-title"> AFILIADO</h3>
+			</div>
+			<div class="panel-body"> <!-- abro body interbloque-->
+            	{{afiliado}}
+            </div>
+         </div>
+         
+         <div class="panel panel-primary"> <!-- abro panel interbloque-->	
+		    <div class="panel-heading" >
+				<h3 class="panel-title"> FAMILIARES</h3>
+			</div>
+			<div class="panel-body"> <!-- abro body interbloque-->
+            	{{familiares}}
+            </div>
+         </div>
+         
+            <div class="col-sm-4">
+                <h2>Formulario de afiliación</h2>
+            </div>
+           
+            <div class="col-sm-3">
+            	<!-- <strong>Trámites rechazados</strong>
+            	<div style="height: 100px; overflow: auto;">
+					<table class="table table-stripped table-texto-truncado">
+						<thead>
+							<tr>
+								<th class="col-sm-2">Tipo</th>
+								<th class="col-sm-1">Nota</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="tramite in tramites | filter:rechazadosFilter | orderBy:'id':true">
+								<td class="td-texto-truncado">{{tramite.tipo.nombre}}</td>
+								<td class="td-texto-truncado">{{tramite.motivoRechazo}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div> -->
+				 <div class="pull-right" style="padding-top: 20px;">
+					<button type="submit" class="btn btn-success" ng-disabled="afiliadoForm.$invalid" ng-click="guardarAfiliado();" ng-show="modoEdicion">Guardar</button>
+                	<button type="button" 
+                		class="btn btn-primary btn-s" 
+                		ng-click="habilitarEdicion();" 
+                		ng-show="!modoEdicion && userHasPermission('Afiliador')">
+                		Editar
+                	</button>
+                	<button type="button" 
+                		class="btn btn-danger btn-s" 
+                		ng-confirm-click="Esta seguro que desea completar el proceso de afiliación?" 
+                		confirmed-click="darPorAfiliado();" 
+                		ng-show="modoEdicion && afiliadoId != '' && afiliado.estado.codigo == '00' && userHasPermission('Afiliador')">
+                		Dar por afiliado
+                	</button>
+                	<button type="button" 
+                		class="btn btn-danger btn-s" 
+                		ng-confirm-click="Esta seguro que desea desvincular el afiliado?" 
+                		confirmed-click="desafiliarAfiliado();" 
+                		ng-show="modoEdicion && afiliadoId != '' && afiliado.estado.codigo == '05' && userHasPermission('Afiliador')">
+                		Dar de baja
+                	</button>
+                	<button type="button" class="btn btn-danger btn-s" 
+                		ng-confirm-click="Esta seguro que desea revincular el afiliado?" 
+                		confirmed-click="reafiliarAfiliado();" 
+                		ng-show="modoEdicion && afiliadoId != '' && afiliado.estado.codigo == '10' && userHasPermission('Afiliador')">
+                		Reafiliar
+                	</button>
+                	
+                	<button type="button" 
+                		class="btn btn-danger btn-s" 
+                		ng-confirm-click="Esta seguro que desea jubilar el afiliado?" 
+                		confirmed-click="pasivarAfiliado();" 
+                		ng-show="modoEdicion && afiliadoId != '' && afiliado.estado.codigo == '05' && userHasPermission('Afiliador')">
+                		Jubilar
+                	</button>
+                	<button type="button" 
+                		class="btn btn-danger btn-s" 
+                		ng-confirm-click="Esta seguro que desea volver a activar el afiliado?" 
+                		confirmed-click="pasivarAfiliado();" 
+                		ng-show="modoEdicion && afiliadoId != '' && afiliado.estado.codigo == '15' && userHasPermission('Afiliador')">
+                		Reactivar
+                	</button>
+                </div>
+			</div>
+            <div class="col-sm-5" style="padding-top: 20px;">
+            	<div class="row">
+            		<div class="col-sm-6" style="text-align: center;">
+            			<a type="button" 
+            				style="margin-bottom: 5px;"
+	                    	class="btn btn-default btn-sm btn-block" 
+	                    	ng-disabled="afiliadoForm.$invalid"
+	                    	ng-show="afiliado.id" 
+	                    	href="/atsa-ingresos-core-new/rest/pdfservice/formulario?id={{afiliado.id}}">
+	                    	Imprimir formulario
+	                    </a>
+	                    <a type="button" 
+            				style="margin-bottom: 5px;"
+	                    	class="btn btn-default btn-sm btn-block" 
+	                    	ng-disabled="afiliadoForm.$invalid" 
+	                    	ng-show="afiliado.id" 
+	                    	href="/atsa-ingresos-core-new/rest/pdfservice/ficha?id={{afiliado.id}}">
+	                    	Imprimir ficha de afiliación
+	                    </a>
+            			<a href="/atsa-ingresos-core-new/rest/pdfservice/recepcionCarnet?id={{afiliado.id}}" 
+            				style="margin-bottom: 5px;"
+	                    	class="btn btn-default btn-sm btn-block" 
+	                    	ng-disabled="afiliadoForm.$invalid"
+	                    	ng-show="userHasPermission('Afiliador') && afiliado.id && afiliado.versionCarnet > 0">
+	                    	Imprimir recepcion de carnet
+	                    </a>
+            		</div>
+            		<div class="col-sm-6" style="text-align: center;">
+	                    <a type="button" 
+            				style="margin-bottom: 5px;"
+	                    	class="btn btn-primary btn-sm btn-block" 
+	                    	ng-disabled="afiliadoForm.$invalid" 
+	                    	ng-show="showFichaDesafiliacion" 
+	                    	href="/atsa-ingresos-core-new/rest/pdfservice/desafiliacion?id={{afiliado.id}}">
+	                    	Imprimir ficha de desafiliacion
+	                    </a>
+	                    
+	                    <button type="button" 
+            				style="margin-bottom: 5px;"
+	                    	class="btn btn-default btn-danger btn-sm btn-block" 
+	                    	ng-disabled="afiliadoForm.$invalid"
+	                    	ng-click="guardarAfiliado(true);"
+	                    	ng-show="userHasPermission('Afiliador') && afiliado.id">
+	                    	Generar carnet
+	                    </button>
+	                    
+	                    <a href="/atsa-ingresos-core-new/rest/carnetservice/getCarnet?id={{afiliado.id}}" 
+            				style="margin-bottom: 5px;"
+	                    	class="btn btn-default btn-sm btn-block" 
+	                    	ng-disabled="afiliadoForm.$invalid"
+	                    	ng-show="userHasPermission('Afiliador') && afiliado.id && afiliado.versionCarnet > 0">
+	                    	Reimprimir carnet
+	                    </a>
+            		</div>
+            	</div>
+            	<!-- 
+                <div class="pull-right">
+                	
+                    <a type="button" 
+                    	class="btn btn-default btn-xs" 
+                    	ng-disabled="afiliadoForm.$invalid"
+                    	ng-show="afiliado.id" 
+                    	href="/atsa-ingresos-core-new/rest/pdfservice/formulario?id={{afiliado.id}}">
+                    	Imprimir formulario
+                    </a>
+                    <a type="button" 
+                    	class="btn btn-default btn-xs" 
+                    	ng-disabled="afiliadoForm.$invalid" 
+                    	ng-show="afiliado.id" 
+                    	href="/atsa-ingresos-core-new/rest/pdfservice/ficha?id={{afiliado.id}}">
+                    	Imprimir ficha de afiliación
+                    </a>
+                    <a href="/atsa-ingresos-core-new/rest/carnetservice/getCarnet?id={{afiliado.id}}" 
+                    	class="btn btn-default btn-xs" 
+                    	ng-disabled="afiliadoForm.$invalid"
+                    	ng-show="userHasPermission('Afiliador') && afiliado.id && afiliado.versionCarnet > 0">
+                    	Reimprimir carnet
+                    </a>
+                    <a href="/atsa-ingresos-core-new/rest/pdfservice/recepcionCarnet?id={{afiliado.id}}" 
+                    	class="btn btn-default btn-xs" 
+                    	ng-disabled="afiliadoForm.$invalid"
+                    	ng-show="userHasPermission('Afiliador') && afiliado.id && afiliado.versionCarnet > 0">
+                    	Imprimir formulario de recepcion de carnet
+                    </a>
+                    
+                    <a type="button" 
+                    	class="btn btn-primary btn-xs" 
+                    	ng-disabled="afiliadoForm.$invalid" 
+                    	ng-show="showFichaDesafiliacion" 
+                    	href="/atsa-ingresos-core-new/rest/pdfservice/desafiliacion?id={{afiliado.id}}">
+                    	Imprimir ficha de baja
+                    </a>
+                    
+                    <button type="button" 
+                    	class="btn btn-default btn-danger btn-xs" 
+                    	ng-disabled="afiliadoForm.$invalid"
+                    	ng-click="guardarAfiliado(true);"
+                    	ng-show="userHasPermission('Afiliador') && afiliado.id">
+                    	Generar carnet
+                    </button>
+                </div>
+                 -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>
+                	<strong>Socio número:</strong> {{afiliado.numeroAfiliado}}
+                </p>
+                <p>
+                	<strong>Estado:</strong> {{afiliado.estado.nombre}}
+                </p>
+                <p ng-show="afiliado.estado.codigo == '10'">
+                	<strong>Motivo</strong> {{ afiliado.tipoBaja.nombre }}
+                	<strong>Fecha de baja: </strong> {{ afiliado.fechaBaja | date:'dd/MM/yyyy' }} 
+                <p>
+                <p>
+                	<span ng-show="afiliado.fechaAfiliacion">
+                		<strong>Fecha de alta: </strong> {{ afiliado.fechaAfiliacion | date:'dd/MM/yyyy' }}
+                	</span>
+                </p>
+            </div>
+            <!-- div class="col-sm-6">
+                <p><strong>Fecha:</strong> {{afiliado.fecha | date:'medium'}}</p>
+            </div -->
+        </div>
+        <section>
+	        <ul class="nav nav-pills">
+				<li ng-class="{ active:seccionSeleccionada('afiliado') }"> 
+					<a href="#" ng-click="seleccionarSeccion('afiliado')">Afiliado</a>
+				</li>
+				<li ng-class="{ active:seccionSeleccionada('familiares') }">
+					<a href="#" ng-click="seleccionarSeccion('familiares')">Familiares</a>
+				</li>
+				<li ng-class="{ active:seccionSeleccionada('notas') }">
+				    <a href="#" ng-click="seleccionarSeccion('notas')">Notas</a>
+				</li>
+				<li ng-class="{ active:seccionSeleccionada('tramites') }" ng-init="inicializar()">
+				    <a href="#" ng-click="seleccionarSeccion('tramites')">Tareas y cambios</a>
+				</li>
+				<li ng-class="{ active:seccionSeleccionada('tramitesDocumentos') }" ng-init="inicializar()">
+					<a href="#" ng-click="seleccionarSeccion('tramitesDocumentos')">Solicitudes/recepción de documentación</a>
+				</li>
+			</ul>
+			<!-- Formulario de afiliación -->
+            <div class="panel" ng-show="seccionSeleccionada('afiliado')">
+			    <form name="afiliadoForm" id="afiliadoForm" ng-submit="afiliadoForm.$valid && afiliadoCtrl.agregarAfiliado()" novalidate>
+			    	<fieldset ng-disabled="!modoEdicion">
+			    		<div class="row">
+			    			<div class="col-sm-2">
+			    				<div ng-show="tomandoFoto">
+				    				<ng-camera
+										type="photo"
+										enabled="true"
+										width="160"
+										height="120"
+										ng-model="foto"
+										capture="fotoTomada(media)"></ng-camera>
+								</div>
+								<div ng-hide="tomandoFoto">
+									<a href="#" ng-click="tomarFoto();">
+										<img width="160" height="120" src="{{ foto }}" ng-show="foto"/>
+										<img width="160" height="120" ng-src="/atsa-ingresos-core-new/rest/afiliadosservice/foto?id={{ afiliado.id }}&tmp={{ stamp }}" ng-hide="foto"/>
+									</a>
+								</div>
+			    			</div>
+			    			<div class="col-sm-10">
+			        		    <div class="row">
+			            		    <div class="form-group col-sm-7">
+			                			<label for="nombre">Nombre:</label>
+			                			<input id="nombre" name="nombre" ng-model="afiliado.nombres" class="form-control" required />
+			            			</div>
+			            			<div class="form-group col-sm-5">
+			                			<label for="apellido">Apellido:</label>
+			                			<input id="apellido" name="apellido" ng-model="afiliado.apellidos" class="form-control" required />
+			                		</div>
+			        		    </div>
+			        		 </div>
+			        	</div>
+	            		<div class="row">
+	                		<div class="form-group col-sm-5">
+	                			<label for="domicilio-particular">Domicilio particular:</label>
+	                			<input id="domicilio-particular" name="domicilio-particular" ng-model="afiliado.domicilio" class="form-control" required />
+	                		</div>
+	                		<div class="form-group col-sm-3">
+	                			<label for="localidad">Localidad:</label>
+	                			<!-- input id="localidad" name="localidad" ng-model="afiliado.localidad" class="form-control" required /  -->
+	                			<autocomplete ng-model="afiliado.localidad" data="localidades" attr-input-class="form-control"></autocomplete>
+	                		</div>
+	                		<div class="form-group col-sm-2">
+	                			<label for="codigo-postal">C.P.:</label>
+	                			<input id="codigo-postal" name="codigo-postal" ng-model="afiliado.codigoPostal" class="form-control" required ng-focus="localidadSetted()"/>
+	                		</div>
+	                		<div class="form-group col-sm-2">
+			           			<label for="telefono">Teléfono:</label>
+			           			<input id="telefono" name="telefono" ng-model="afiliado.telefono" class="form-control" required />
+			           		</div>
+	            		</div>
+	            		<div class="row">
+	                		<div class="form-group col-sm-2">
+	                			<label for="fecha-nacimiento">Fecha de nacimiento:</label>
+	                			<div class="dropdown pull-left">
+	                				<input id="fecha-nacimiento" 
+	               						type="date" 
+	               						class="form-control" 
+	               						ng-model="afiliado.fechaNacimientoString" 
+	                                   	ng-required="true"/>
+	                        	</div>
+	                		</div>
+	                		<div class="form-group col-sm-3">
+	                			<label for="estado-civil">Estado civil:</label>
+	                			
+	                			<select id="estado-civil" name="estado-civil" ng-model="afiliado.estadoCivil" class="form-control" required>
+	                			    <option value="SOLTERO">Soltero/a</option>
+	                			    <option value="CASADO">Casado/a</option>
+	                			    <option value="DIVORCIADO">Divorciado/a</option>
+	                			    <option value="VIUDO">Viudo/a</option>
+	                			    <option value="SEPARADO">Separado/a</option>
+	                			    <option value="CONCUBINATO">Concuvino/a</option>
+	                			    <option value="SIN_DATOS">Sin datos</option>
+	                			</select>
+	                		</div>
+	                		<div class="form-group col-sm-4">
+	                			<label for="nacionalidad">Nacionalidad:</label>
+	                			<select id="nacionalidad" 
+	                				name="estado-civil" 
+	                				ng-model="afiliado.nacionalidad" 
+	                				class="form-control" 
+	                				ng-options="pais as pais.descripcion for pais in parameters.paises track by pais.id"
+	                				required>
+	                			</select>
+	                		</div>
+	                		<div class="form-group col-sm-3">
+	                			<label for="sexo">Sexo:</label>
+	                			<select id="sexo" name="sexo" ng-model="afiliado.sexo" class="form-control" ng-change="calcularCuil();" required>
+	                				<option value="MASCULINO">Masculino</option>
+	                				<option value="FEMENINO">Femenino</option>
+	                			</select>
+	                		</div>
+	            		</div>
+	            		<div class="row">
+	                		<div class="form-group col-sm-3">
+	                			<label for="documento-numero">Doc. nro.: </label>
+	                			<input type="text" ng-change="calcularCuil();" id="documento-numero" name="documento-numero" ng-model="afiliado.documento" class="form-control" required />
+	                		</div>
+	                		<div class="form-group col-sm-3">
+	                			<label for="cuil">CUIL:</label>
+	                			<input id="cuil" name="cuil" ng-model="afiliado.cuil" class="form-control" required>
+	                        </div>
+	                        <div class="form-group col-sm-3">
+	                			<label for="profesion">Profesión</label>
+	                			<input id="profesion" name="profesion" ng-model="afiliado.profesion" class="form-control" required />
+	                		</div>
+						</div>
+	            		<div class="row">
+	                		<div class="form-group col-sm-3">
+	                			<label for="convenio">Convenio:</label>
+	                			<select id="convenio" 
+	                		    	name="convenio" 
+	                		    	ng-model="afiliado.convenio" 
+	                		    	class="form-control" 
+	                				ng-options="convenio as convenio.nombre for convenio in parameters.convenios track by convenio.id">
+	                		    </select>
+	                		</div>
+	                		<div class="form-group col-sm-3">
+	                			<label for="cuil">Categoria:</label>
+	                			<select id="categoria" 
+	                		    	name="categoria" 
+	                		    	ng-model="afiliado.categoria" 
+	                		    	class="form-control" 
+	                				ng-options="categoria as categoria.nombre for categoria in afiliado.convenio.categorias track by categoria.id">
+	                		    </select>
+	                        </div>
+						</div>
+						<div class="row">
+							<div class="form-group col-sm-4">
+	                		    <label for="establecimiento"><h3>Establecimiento:</h3></label>
+	                		    <br/>
+								<div class="">
+		                			<div ng-show="afiliado.establecimiento.id">
+			                		    {{afiliado.establecimiento.nombre}}, Sucursal {{afiliado.establecimiento.numeroSucursal}}
+		                		    </div>
+		                		    <div ng-hide="afiliado.establecimiento.id">
+		                		    	Sin datos
+		                		    </div>
+	                		    </div>
+	                		</div>
+	                		<div class="form-group col-sm-2" style="margin-top:40px;">
+	                		    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#establecimientoModal">
+								  Buscar
+								</button>
+							</div>
+	                        <div class="form-group col-sm-3" style="margin-top:20px;">
+	                			<label for="fecha-ingreso">Fecha de ingreso</label>
+	                			<div class="dropdown pull-left">
+	                				<input id="fecha-ingreso" 
+	               						type="date" 
+	               						class="form-control" 
+	               						ng-model="afiliado.fechaIngresoString" 
+	                                   	ng-required="true"/>
+	                        	</div>
+	                		</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-sm-1">
+								<h4>Estudios</h4>
+							</div>
+							<div class="form-group col-sm-1">
+	           					<a class="btn" href="javascript:void(0);" ng-click="agregarEstudio();" title="Agregar estudio">
+	           						<span class="glyphicon glyphicon-plus"></span> Agregar estudio
+	           					</a>
+	           				</div>
+	           			</div>
+						<div class="row" ng-repeat="estudio in estudios">
+	            			<div class="form-group col-sm-3">
+	            				<label for="nivel-de-estudios">Nivel de Estudios:</label>
+	            				<select id="nivel-de-estudios" name="nivel-de-estudios" ng-model="estudio.nivel" class="form-control" required>
+	            					<option value="PRIMARIO">Primario</option>
+	            					<option value="SECUNDARIO">Secundario</option>
+	            					<option value="TERCIARIO">Terciario</option> 
+	            					<option value="UNIVERSITARIO">Universitario</option>
+	            				</select>
+	            			</div>
+	            			<div class="form-group col-sm-3">
+	            				<label for="establecimiento-de-estudios">Establecimiento:</label>
+	            				<input id="establecimiento-de-estudios" name="establecimiento-de-estudios" ng-model="estudio.establecimiento" class="form-control" required />            				
+	            			</div>
+	            			<div class="form-group col-sm-3">
+	            				<label for="titulo-de-estudios">Título:</label>
+	            				<input id="titulo-de-estudios" name="titulo-de-estudios" ng-model="estudio.titulo" class="form-control" required />            				
+	            			</div>
+	            			<div class="form-group col-sm-2">
+	            				<label for="terminado">Terminado:</label>
+	            				<select id="terminado" name="terminado" ng-model="estudio.terminado" class="form-control" required>
+	            					<option value="true">Si</option>
+	            					<option value="false">No</option>
+	            				</select>          				
+	            			</div>
+	            			<div class="form-group col-sm-1">
+	            				<div style="margin-top: 30px">
+		            				<a id="eliminar" class="btn btn-danger btn-xs" href="#" title="Eliminar" ng-click="eliminarEstudio(estudio);">
+		            					<span class="glyphicon glyphicon-remove"></span>
+		            				</a>
+	            				</div>
+	            			</div>
+	            		</div>
+            		</fieldset>
+                <h3>Archivos adjuntos</h3>
+                
+                	<fieldset>
+	                	<div flow-init="{
+	                			target: '/atsa-ingresos-core-new/rest/afiliadosservice/upload', 
+	                			testChunks:false, 
+	                			uploadMethod: 'POST',
+	                			query: fileUploadQuery,
+	                			chunkSize: 2*1024*1024
+	                		}" flow-name="uploader.flow"
+	                		flow-file-added="validateFile($file)">
+	                		<div class="row">
+	                			<div class="col-sm-2">
+	                				<span class="btn btn-primary" flow-btn ng-disabled="!modoEdicion">Buscar archivo</span>
+	                			</div>
+	                			<div class="col-sm-10" ng-show="modoEdicion">
+			                		<div class="upload-drop-zone" flow-drop>
+									    Arrastrar archivos aquí
+									</div>
+	                			</div>
+	                		</div>
+	                		<table class="table table-stripped">
+		                        <thead>
+		                            <tr>
+		                                <th class="col-sm-4">Tipo</th>
+		                                <th class="col-sm-6">Nombre de archivo</th>
+		                                <th class="col-sm-2">Acción</th>
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                            <tr ng-repeat="file in uploader.flow.files">
+		                                <td>
+		                                	<select id="tipo-de-adjunto" 
+		                                		name="tipo-de-adjunto" 
+		                                		ng-model="file.tipoDocumento" 
+		                                		class="form-control"
+		                                		ng-options="tipoDocumento as tipoDocumento.nombre for tipoDocumento in parameters.tipoDocumentosArchivados" 
+		                                		required>
+				                			</select>
+		                                </td>
+		                                <td>{{file.name}}</td>
+		                                <td>
+		                                    <p class="table-buttons">
+		                                        <a class="btn btn-danger btn-xs" href="#" title="Eliminar" ng-click="removeFileToUpload(file);">
+		                                        	<span class="glyphicon glyphicon-remove"></span>
+		                                        </a>
+		                                    </p>
+		                                </td>
+		                            </tr>
+		                             <tr ng-repeat="documento in documentos">
+		                                <td>
+		                                	{{ documento.tipo.nombre }}
+		                                </td>
+		                                <td>{{documento.archivo}}</td>
+		                                <td>
+		                                    <p class="table-buttons">
+		                                        <a class="btn btn-success btn-xs" href="/atsa-ingresos-core-new/rest/afiliadosservice/download?id={{ documento.id }}" title="Descargar">
+		                                        	<span class="glyphicon glyphicon-download"></span>
+		                                        </a>
+		                                        <a class="btn btn-danger btn-xs" href="#" title="Eliminar" ng-disabled="!modoEdicion" ng-click="eliminarDocumento(documento);">
+		                                        	<span class="glyphicon glyphicon-remove"></span>
+		                                        </a>
+		                                    </p>
+		                                </td>
+		                             </tr>
+		                        </tbody>
+		                    </table>
+	                	</div>
+	                    
+	            	</fieldset>
+                </form>
+            </div>
+            <div class="panel" ng-show="seccionSeleccionada('familiares')">
+                <fieldset>
+	                <p class="table-toolbar">
+		                <a class="btn btn-primary btn-sm" ng-click="editarFamiliar()" ng-disabled="!modoEdicion">Agregar familiar</a>
+					</p>
+				
+	        	    <table class="table table-stripped">
+	        	        <thead>
+	        	            <tr>
+	        	                <th class="col-sm-3">Nombre</th>
+	        	                <th class="col-sm-2">Apellido</th>
+	        	                <th class="col-sm-1">Fecha nac</th>
+	        	                <th class="col-sm-1">Tipo</th>
+	        	                <th class="col-sm-2">Documento</th>
+	        	                <th class="col-sm-2">Acción</th>
+	        	            </tr>
+	        	        </thead>
+	        	        <tbody>
+	            	        <tr ng-repeat="familiar in familiares">
+	            	            <td>{{familiar.familiar.nombres}}</td>
+	            	            <td>{{familiar.familiar.apellidos}}</td>
+	            	            <td>{{familiar.familiar.fechaNacimientoString | date : 'dd/MM/yyyy'}}</td>
+	            	            <td>{{familiar.relacion.nombre}}</td>
+	            	            <td>{{familiar.familiar.documento}}</td>
+	            	            <td>
+	                                <p class="table-buttons" ng-show="modoEdicion">
+	                                	<a class="btn btn-success btn-xs" href="#" title="Editar" ng-click="editarFamiliar(familiar);">
+	                                		<span class="glyphicon glyphicon-edit"></span>
+	                                	</a>
+	                                    <a class="btn btn-danger btn-xs" href="#" title="Eliminar" ng-click="eliminarFamiliar(familiar);">
+	                                    	<span class="glyphicon glyphicon-remove"></span>
+	                                    </a>
+	                                </p>
+	                                <p class="table-buttons" ng-hide="modoEdicion">
+	                                	<a class="btn btn-success btn-xs" href="#" title="Editar" ng-click="editarFamiliar(familiar, true);">
+	                                		<span class="glyphicon glyphicon-eye-open"></span>
+	                                	</a>
+	                                </p>
+	                            </td>
+	            	        </tr>
+	        	        </tbody>
+	        	    </table>
+	       		</fieldset>
+            </div>
+            <div class="panel" ng-show="seccionSeleccionada('notas')">
+                <form name="notaForm" id="notaForm" ng-submit="notaForm.$valid && afiliadoCtrl.agregarNota()" novalidate>
+                	<fieldset ng-disabled="!modoEdicion">
+	                    <div class="form-group">
+	                        <label for="nota">Notas:</label>
+	                        <textarea rows="8" id="nota" name="nota" class="form-control" required ng-model="notas"></textarea>
+	                    </div>
+	                </fieldset>
+                </form>
+                <h4>Notas</h4>
+                <div class="row">
+	                <ul>
+		                <li ng-repeat="tramite in tNotas | orderBy:'id':true">
+		                	<h4>{{ tramite.fechaSolicitud | date:'dd/MM/yyyy' }} - {{ tramite.usuario.nombres }} {{ tramite.usuario.apellidos }}</h4>
+		                	<p>{{ tramite.data }}</p>
+		                </li>
+		                <li ng-show="tNotasNextPage > 0">
+		                	<a href="#" ng-click="getTramiteNotas(tNotasNextPage);">Buscar mas resultados</a>
+		                </li>
+		            </ul>
+	            </div>
+            </div>
+            <div class="panel" ng-show="seccionSeleccionada('tramites')">
+            	<fieldset>
+                	<table class="table table-stripped table-texto-truncado">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-2">Tipo</th>
+                                <th class="col-sm-1">Estado</th>
+                                <th class="col-sm-1">Creado</th>
+                                <th class="col-sm-3">Por</th>
+                                <th class="col-sm-4">Datos</th>
+                                <th class="col-sm-1">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tramite in tCambios | orderBy:'id':true">
+                                <td class="td-texto-truncado" title="{{tramite.tipo.nombre}}">{{tramite.tipo.nombre}}</td>
+                                <td class="td-texto-truncado" title="{{tramite.fechaAprobacion | date : 'dd/MM/yyyy'}}: {{ tramite.aprobador.nombres }} {{ tramite.aprobador.apellidos }}">{{tramite.estado.nombre}}</td>
+                                <td>{{tramite.fechaSolicitudString | date : 'dd/MM/yyyy'}}</td>
+                                <td>{{tramite.usuario.nombres}} {{tramite.usuario.apellidos}}</td>
+                                <td class="td-texto-truncado">
+                                	<div ng-include="'partials/tramites/' + sub2(tramite.tipo.codigo) + '.html'"
+                                		title="{{ tramite.nota.data }}">
+                                	</div>
+                                	<div ng-show="tramite.motivoRechazo">
+                                		<strong>Notas de aprobación:</strong><br/>{{tramite.motivoRechazo}}
+                                	</div>
+                                </td>
+                                <td>
+                                    <p class="table-buttons" ng-show="tramite.estado.codigo == '00' && userHasPermission('Tramite.' + '{{tramite.tipo.codigo}}')">
+                                        <a class="btn btn-success btn-xs" href="#" title="Aprobar" ng-click="aprobarTramite(tramite);">
+                                        	<span class="glyphicon glyphicon-thumbs-up"></span>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs" href="#" title="Rechazar" ng-click="rechazarTramite(tramite);">
+                                        	<span class="glyphicon glyphicon-thumbs-down"></span>
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr ng-show="tCambiosNextPage > 0">
+                            	<td colspan="6">
+		                			<a href="#" ng-click="getTramiteCambios(tCambiosNextPage);">Buscar mas resultados</a>
+                            	</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            	</fieldset>
+            </div>
+            <div class="panel" ng-show="seccionSeleccionada('tramitesDocumentos')">
+            	<fieldset>
+                	<table class="table table-stripped table-texto-truncado">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-2">Tipo</th>
+                                <th class="col-sm-1">Estado</th>
+                                <th class="col-sm-1">Creado</th>
+                                <th class="col-sm-3">Por</th>
+                                <th class="col-sm-4">Datos</th>
+                                <th class="col-sm-1">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tramite in tDocumentos | orderBy:'id':true">
+                                <td class="td-texto-truncado" title="{{tramite.tipo.nombre}}">{{tramite.tipo.nombre}}</td>
+                                <td class="td-texto-truncado" title="{{tramite.fechaAprobacion | date : 'dd/MM/yyyy'}}: {{ tramite.aprobador.nombres }} {{ tramite.aprobador.apellidos }}">{{tramite.estado.nombre}}</td>
+                                <td>{{tramite.fechaSolicitudString | date : 'dd/MM/yyyy'}}</td>
+                                <td>{{tramite.usuario.nombres}} {{tramite.usuario.apellidos}}</td>
+                                <td class="td-texto-truncado">
+                                	<div ng-include="'partials/tramites/' + sub2(tramite.tipo.codigo) + '.html'"
+                                		title="{{ tramite.nota.data }}">
+                                	</div>
+                                	<div ng-show="tramite.motivoRechazo">
+                                		<strong>Notas de aprobación:</strong><br/>{{tramite.motivoRechazo}}
+                                	</div>
+                                </td>
+                                <td>
+                                    <p class="table-buttons" ng-show="tramite.estado.codigo == '00' && userHasPermission('Tramite.' + '{{tramite.tipo.codigo}}')">
+                                        <a class="btn btn-success btn-xs" href="#" title="Aprobar" ng-click="aprobarTramite(tramite);">
+                                        	<span class="glyphicon glyphicon-thumbs-up"></span>
+                                        </a>
+                                        <a class="btn btn-danger btn-xs" href="#" title="Rechazar" ng-click="rechazarTramite(tramite);">
+                                        	<span class="glyphicon glyphicon-thumbs-down"></span>
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr ng-show="tDocumentosNextPage > 0">
+                            	<td colspan="6">
+		                			<a href="#" ng-click="getTramiteDocumentos(tDocumentosNextPage);">Buscar mas resultados</a>
+                            	</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            	</fieldset>
+            </div>
+    	</section>
+	</div>
+</div>
+
+
+<div class="modal fade" id="establecimientoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Buscar establecimiento</h4> <a href="/atsa-ingresos-ui-new/#!/home/establecimientos" target="_blank">Administración de establecimientos</a>
+      </div>
+      <div class="modal-body">
+        	<div class="form-group horizontal-field">
+        		<label for="bscEstablecimientoNombre" class="col-sm-2">
+        			Nombre
+        		</label>
+        		<input type="text" ng-model="bscEstablecimientoNombre"/>
+        	</div>
+        	<div class="form-group horizontal-field">
+        		<label for="bscEstablecimientoCuit" class="col-sm-2">
+        			Cuit
+        		</label>
+        		<input type="text" ng-model="bscEstablecimientoCuit"/>
+        	</div>
+        	<div class="submit-container">
+        		<a href="javascript:void(0)" class="btn btn-success" ng-click="findEstablecimientos(bscEstablecimientoNombre, bscEstablecimientoCuit);">Buscar</a>
+        	</div>
+        	
+        	<div ng-show="establecimientos.length">
+        		<table class="table">
+        			<thead>
+        				<tr>
+	        				<th>Nombre</th>
+	        				<th>CUIT</th>
+	        				<th>Sucursal</th>
+	        			</tr>
+        			</thead>
+        			<tbody>
+        				<tr ng-repeat="establecimiento in establecimientos">
+        					<td>
+        						<a href="javascript:void(0);" ng-click="selectEstablecimiento(establecimiento);">{{establecimiento.nombre}}</a>
+        					</td>
+        					<td>
+        						{{establecimiento.cuit}}
+        					</td>
+        					<td>
+        						{{establecimiento.numeroSucursal}}
+        					</td>
+        				</tr>
+        			</tbody>
+        		</table>
+        	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

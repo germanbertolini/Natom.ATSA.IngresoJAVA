@@ -1,0 +1,25 @@
+.container {
+	max-width: 100% !important;
+}
+
+.dropdown a:focus {
+	color: rgb(255,255,255);
+	color: rgba(255,255,255,.5);
+}
+
+/* override del hover de los dropdons */
+.dropdown-menu>li>a {
+	font-weight: 400;
+	float: none;
+	margin-right: 0px;
+	text-decoration: none;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+	text-decoration: none;
+	background-color: #666;
+}
+
+.tooltip {
+	z-index: 2000 !important;
+}
