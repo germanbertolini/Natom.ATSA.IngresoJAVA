@@ -39,10 +39,11 @@
             <table class="table table-stripped" ng-show="busquedaVisible">
                 <thead>
                     <tr>
-                        <th class="col-sm-3">Nombre</th>
+                        <th class="col-sm-2">Nombre</th>
                         <th class="col-sm-2">Apellido</th>
-                        <th class="col-sm-2">Tipo</th>
+                        <th class="col-sm-1">Tipo</th>
                         <th class="col-sm-2">CUIL</th>
+                        <th class="col-sm-2">Email</th>
                         <th class="col-sm-1">Nro. afiliado</th>
                         <th class="col-sm-1">Tipo</th>
                         <th class="col-sm-1">Doc.</th>
@@ -51,7 +52,7 @@
                 </thead>
                 <tbody>
                 	<tr ng-hide="afiliados.length">
-                		<td colspan="7">No se encuentran afiliados</td>
+                		<td colspan="8">No se encuentran afiliados</td>
                 	</tr>
                     <tr ng-repeat="afiliado in afiliados">
                         <td>{{ afiliado.nombres }}</td>
@@ -62,6 +63,7 @@
                         	<span ng-show="afiliado.tipoPersona == 'FAMILIAR'">GRUPO FAMILIAR</span>
                         </td>
                         <td>{{ afiliado.cuil }}</td>
+                        <td>{{ afiliado.email }}</td>
                         <td>{{ afiliado.numeroAfiliado }}</td>
                         <td>{{ afiliado.documentoTipo }}</td>
                         <td>{{ afiliado.documento }}</td>
