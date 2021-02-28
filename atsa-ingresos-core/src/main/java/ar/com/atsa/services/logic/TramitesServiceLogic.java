@@ -873,7 +873,7 @@ public class TramitesServiceLogic {
 	private Map<String, Map<String, String>> inferirDatosRegistrales(final Persona in, final Persona original) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Map<String, Map<String, String>> cambios = new HashMap<String, Map<String, String>>();
 		String[] propiedadesRegistrales = new String[]{"fechaNacimientoString", "fechaIngresoString", "profesion", "domicilio", "localidad", "codigoPostal", "telefono",
-				"nombres", "apellidos", "documento", "sexo", "fechaNacimientoString", "cuil"};
+				"nombres", "apellidos", "documento", "sexo", "fechaNacimientoString", "cuil", "email"};
 		
 		Map<String, String> inProps = BeanUtils.describe(in);
 		Map<String, String> orProps = BeanUtils.describe(original);

@@ -105,6 +105,10 @@ public class Persona implements Serializable, DBEntity {
 	@Basic
 	@Column(name = "FECHA_AFILIACION", nullable = true)
 	private Date fechaAfiliacion;
+        
+        @Basic
+	@Column(name = "EMAIL", nullable = true)
+	private String email;
 
 	@ManyToOne
     @JoinColumn(name = "ESTADO_ID", referencedColumnName = "ID")
@@ -316,6 +320,14 @@ public class Persona implements Serializable, DBEntity {
 
 	public void setFechaAfiliacionString(String fechaAfiliacionString) {
 		this.fechaAfiliacion = DateUtils.getDateFromStringYyyyMMdd(fechaAfiliacionString);
+	}
+        
+        public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Estado getEstado() {
