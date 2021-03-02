@@ -917,7 +917,7 @@ public class TramitesServiceLogic {
 		for (String propiedadRegistral: propiedadesRegistrales) {
 			String inProp = inProps.get(propiedadRegistral);
 			String orProp = orProps.get(propiedadRegistral);
-			if ((inProp == null && orProp != null) || !inProp.equalsIgnoreCase(orProp)) {
+			if ((inProp == null && orProp != null) || (inProp != null && !inProp.equalsIgnoreCase(orProp))) {
 				Map<String, String> cambio =  new HashMap<String, String>();
 				cambio.put(orProp, inProp);
 				cambios.put(propiedadRegistral, cambio);
