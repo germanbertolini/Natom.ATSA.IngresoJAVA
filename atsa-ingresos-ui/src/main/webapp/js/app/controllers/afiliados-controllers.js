@@ -547,15 +547,16 @@ atsaControllers.controller('AfiliadosController', ['$scope','$rootScope', 'Afili
 		$scope.desafiliarAfiliado = function() {
 			var afiliadoDTO = $scope.buildAfiliadoTO();
 			var parameters = $scope.parameters;
-			
+                        			
 			var ModalInstanceCtrl = function ($scope, $modalInstance) {
-				$scope.tiposBaja = parameters.tiposBaja;
-                $scope.motivo = {};
-                $scope.close = function (motivo) {
-                	//console.debug(motivo);
-                	$modalInstance.close(motivo);
-                };
-            };
+                            $scope.tiposBaja = parameters.tiposBaja;
+                            $scope.fechaBaja = "";
+                            $scope.motivo = {};
+
+                            $scope.close = function (motivo, fechaBaja) {
+                                    $modalInstance.close({ tipoBaja: motivo, fechaBaja: fechaBaja });
+                            };
+                        };
 
 			var modalInstance = $modal.open({
             	  backdrop:'static',
@@ -567,12 +568,12 @@ atsaControllers.controller('AfiliadosController', ['$scope','$rootScope', 'Afili
 	              }
             });
 
-            modalInstance.result.then(function (motivo) {
-            	if (motivo) {
-	            	//console.debug(motivo);
-	            	afiliadoDTO.afiliado.tipoBaja = motivo;
-	            	//console.debug(angular.toJson(afiliadoDTO));
-	            	$scope.doDesafiliarAfiliado(afiliadoDTO);
+            modalInstance.result.then(function (data) {
+            	if (data.tipoBaja && data.fechaBaja) {
+                    afiliadoDTO.afiliado.tipoBaja = data.tipoBaja;
+                    afiliadoDTO.afiliado.fechaBaja = data.fechaBaja;
+
+                    $scope.doDesafiliarAfiliado(afiliadoDTO);
             	}
             }, function () {});
 			
