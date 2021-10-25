@@ -417,9 +417,9 @@
 			</activation>
 			<properties>
 				<db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
-				<db.connectionURL>jdbc:mysql://atsa.hopto.org:3306/afiliados</db.connectionURL>
-				<db.username>remoto</db.username>
-				<db.password>gekfP72aZxGWgFFyPVD7XS</db.password>
+				<db.connectionURL>jdbc:mysql://localhost:3306/afiliados_atsa</db.connectionURL>
+				<db.username>root</db.username>
+				<db.password>1234</db.password>
 			</properties>
 		</profile>
 
@@ -428,9 +428,9 @@
 			<id>dev</id>
 			<properties>
 				<db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
-				<db.connectionURL>jdbc:mysql://atsa.hopto.org:3306/afiliados</db.connectionURL>
-				<db.username>remoto</db.username>
-				<db.password>gekfP72aZxGWgFFyPVD7XS</db.password>
+				<db.connectionURL>jdbc:mysql://localhost:3306/afiliados_atsa</db.connectionURL>
+				<db.username>root</db.username>
+				<db.password>1234</db.password>
 			</properties>
 		</profile>
 
@@ -439,9 +439,9 @@
 			<id>test</id>
 			<properties>
 				<db.driverClass>com.mysql.jdbc.Driver</db.driverClass>
-				<db.connectionURL>jdbc:mysql://atsa.hopto.org:3306/afiliados</db.connectionURL>
-				<db.username>remoto</db.username>
-				<db.password>gekfP72aZxGWgFFyPVD7XS</db.password>
+				<db.connectionURL>jdbc:mysql://localhost:3306/afiliados_atsa</db.connectionURL>
+				<db.username>root</db.username>
+				<db.password>1234</db.password>
 			</properties>
 		</profile>
 
