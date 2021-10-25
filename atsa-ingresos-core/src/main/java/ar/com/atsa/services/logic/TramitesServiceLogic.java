@@ -14,13 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.atsa.commons.dto.AfiliadoTO;
 import ar.com.atsa.commons.dto.CambioEstablecimientoTO;
 import ar.com.atsa.commons.dto.FamiliarTO;
 import ar.com.atsa.commons.enums.EstadoCivil;
 import ar.com.atsa.commons.enums.TipoPersona;
+import ar.com.atsa.persistence.entities.Baja;
 import ar.com.atsa.persistence.entities.Categoria;
 import ar.com.atsa.persistence.entities.Convenio;
 import ar.com.atsa.persistence.entities.DBEntity;
@@ -32,7 +32,6 @@ import ar.com.atsa.persistence.entities.Familiar;
 import ar.com.atsa.persistence.entities.Pais;
 import ar.com.atsa.persistence.entities.Persona;
 import ar.com.atsa.persistence.entities.Rol;
-import ar.com.atsa.persistence.entities.TipoBaja;
 import ar.com.atsa.persistence.entities.TipoDocumentoArchivado;
 import ar.com.atsa.persistence.entities.TipoTramite;
 import ar.com.atsa.persistence.entities.Tramite;
@@ -52,6 +51,7 @@ import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.commons.lang3.time.DateUtils;
 
 @Component
 public class TramitesServiceLogic {
@@ -270,11 +270,11 @@ public class TramitesServiceLogic {
 				afiliado.setEstablecimiento(cambio.getDestino());
 				this.personaRepository.save(afiliado);
 			} else if (tramite.getTipo().getCodigo().equalsIgnoreCase("15")) { // BAJA DE AFILIADO
-				TipoBaja tipoBaja = gson.fromJson(data, TipoBaja.class);
+                                Baja datosBaja = gson.fromJson(data, Baja.class);
 				Estado estadoDesfiliado = this.estadoRepository.findOneByCodigo("10");
 				afiliado.setEstado(estadoDesfiliado);
-				afiliado.setTipoBaja(tipoBaja);
-				afiliado.setFechaBaja(new Date());
+				afiliado.setTipoBaja(datosBaja.getTipoBaja());
+				afiliado.setFechaBaja(datosBaja.getFechaBaja());
 				this.personaRepository.save(afiliado);
 			} else if (tramite.getTipo().getCodigo().equalsIgnoreCase("16")) { // REAFILIACION
 				Estado estadoAfiliado = this.estadoRepository.findOneByCodigo("05");
@@ -789,6 +789,7 @@ public class TramitesServiceLogic {
 			}
 		}
 		
+                //DESAFILIACION
 		if (accionAfiliacion == 1) {
 			TipoTramite tipoDesafiliacion = this.tipoTramiteRepository.findOneByCodigo("15");
 			TipoTramite tipoReafiliacion = this.tipoTramiteRepository.findOneByCodigo("16");
@@ -802,15 +803,24 @@ public class TramitesServiceLogic {
 			} else {
 				desafiliacion.setTipo(tipoReafiliacion);
 			}
-			
-			Gson gson = new Gson();
-			String data = gson.toJson(in.getAfiliado().getTipoBaja());
+                        
+                        //AGREGO 3 HORAS POR EL UTC -3:00
+                        Date fechaBajaUTC = DateUtils.addMinutes(in.getAfiliado().getFechaBaja(), 180);
+                        
+                        Gson gson =  new Gson();
+                        Baja datosBaja = new Baja();
+                        datosBaja.setTipoBaja(in.getAfiliado().getTipoBaja());
+                        datosBaja.setFechaBaja(fechaBajaUTC);
+			String data = gson.toJson(datosBaja);
 			System.out.println(data);
 			
 			desafiliacion.setData(data);
 			
 			tramites.add(desafiliacion);
-		} else if (accionAfiliacion == 2) {
+		}
+                
+                //PASIVACION
+                else if (accionAfiliacion == 2) {
 			TipoTramite tipoPasivacion = this.tipoTramiteRepository.findOneByCodigo("20");
 			TipoTramite tipoReactivacion = this.tipoTramiteRepository.findOneByCodigo("21");
 			
