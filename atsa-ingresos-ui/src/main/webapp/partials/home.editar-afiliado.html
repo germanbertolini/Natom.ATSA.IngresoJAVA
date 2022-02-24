@@ -84,7 +84,7 @@
             				style="margin-bottom: 5px;"
 	                    	class="btn btn-default btn-sm btn-block" 
 	                    	ng-disabled="afiliadoForm.$invalid" 
-	                    	ng-show="afiliado.id" 
+	                    	ng-show="afiliado.id && (afiliado.estado.nombre == 'Afiliado' || (afiliado.estado.nombre != 'Afiliado' && afiliado.tipoBaja.nombre == 'Desafiliación'))"
 	                    	href="/atsa-ingresos-core-new/rest/pdfservice/ficha?id={{afiliado.id}}">
 	                    	Imprimir ficha de afiliación
 	                    </a>
@@ -179,7 +179,7 @@
                 	<strong>Socio número:</strong> {{afiliado.numeroAfiliado}}
                 </p>
                 <p>
-                	<strong>Estado:</strong> {{afiliado.estado.nombre}}
+                	<strong>Estado:</strong> {{ (afiliado.estado.nombre == "Desafiliado" ? afiliado.tipoBaja.nombre : afiliado.estado.nombre) }}
                 </p>
                 <p ng-show="afiliado.estado.codigo == '10'">
                 	<strong>Motivo</strong> {{ afiliado.tipoBaja.nombre }}
