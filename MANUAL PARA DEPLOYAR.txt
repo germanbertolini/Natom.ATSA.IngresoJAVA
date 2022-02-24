@@ -1,10 +1,12 @@
 1) Acceder al Servidor productivo de ATSA con AnyDesk:
- * Usuario: 340140696
+ * Usuario: 546540118
  * Clave: Azsxdc123
+
 
 2) Identificarnos en el servidor, con:
  * Usuario: Marcos (default)
  * Clave: 74108520
+
 
 3) Habilitar Manager del tomcat. Para ello, descomentaremos los tags en el archivo tomcat-users.xml:
  * sudo nano /var/lib/tomcat7/conf/tomcat-users.xml
@@ -13,21 +15,48 @@
  *    Ctrl + X (salir)
  * sudo service tomcat7 restart
 
-4) Desde el servidor, dirigirnos a http://localhost:8080/manager/html y acceder con:
+
+4) Habilitar el puerto "8080" del Manager del tomcat. Para ello, hacer:
+* sudo nano /var/lib/tomcat7/conf/server.xml
+* Ubicar el nodo <Connector port="80" protocol="HTTP/1.1".... y comentarlo.
+* Ubicar el <Connector executor="tomcatThreadPool" y descomentarlo, dejando solamente comentado el ...redirectPort="8443"
+ *    Ctrl + O (guardar)
+ *    Ctrl + X (salir)
+ * sudo service tomcat7 restart
+
+
+5) Desde el servidor, dirigirnos a http://localhost:8080/manager/html y acceder con:
  * Usuario: admin
  * Clave: 74108520
 
-5) Buildear el proyecto con NetBeans y transferir a /home/marcos/NaTom los .war
 
-6) En el manager del TomCat, ir a "Archivo WAR a desplegar" y seleccionar el .war. Luego darle a "Desplegar".
+6) Buildear el proyecto con NetBeans y transferir a /home/marcos/NaTom los .war
 
-7) Corroborar que haya quedado corriendo OK:
+
+7) En el manager del TomCat, ubicar "/atsa-ingresos-core-new" y "/atsa-ingresos-ui-new" y darle a "Replegar".
+
+
+8) En el manager del TomCat, ir a "Archivo WAR a desplegar" y seleccionar el .war. Luego darle a "Desplegar".
+
+
+9) Corroborar que haya quedado corriendo OK:
 > DESDE SERVER: http://localhost:8080/atsa-ingresos-ui-new/#!/login
 > DESDE INTRANET: https://192.168.0.30:844/atsa-ingresos-ui-new/#!/login
+> DESDE EXTRANET: https://atsa.hopto.org:8443/atsa-ingresos-ui-new/#!/login
  * Usuario: atsacontaduria@speedy.com.ar
  * Clave: password
 
-8) Volvemos a deshabilitar Manager del tomcat:
+
+10) Volvemos a deshabilitar el puerto 8080 del tomcat:
+* sudo nano /var/lib/tomcat7/conf/server.xml
+* Ubicar el nodo <Connector port="80" protocol="HTTP/1.1".... y DESCOMENTARLO
+* Ubicar el <Connector executor="tomcatThreadPool" y COMENTARLO
+ *    Ctrl + O (guardar)
+ *    Ctrl + X (salir)
+ * sudo service tomcat7 restart
+
+
+11) Volvemos a deshabilitar Manager del tomcat:
 * sudo nano /var/lib/tomcat7/conf/tomcat-users.xml
  *    -comentar-
  *    Ctrl + O (guardar)
