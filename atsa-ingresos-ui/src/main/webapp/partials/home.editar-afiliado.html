@@ -179,7 +179,7 @@
                 	<strong>Socio número:</strong> {{afiliado.numeroAfiliado}}
                 </p>
                 <p>
-                	<strong>Estado:</strong> {{ (afiliado.estado.nombre == "Pendiente" ? "Pendiente" : ( afiliado.estado.nombre == "Afiliado" ? "Activo" : "Baja" )) }}
+                	<strong>Estado:</strong> {{ (afiliado.estado.nombre == "Pasivo" ? "Pasivo" : (afiliado.estado.nombre == "Pendiente" ? "Pendiente" : ( afiliado.estado.nombre == "Afiliado" ? "Activo" : "Baja" ))) }}
                 </p>
                 <p ng-show="afiliado.estado.codigo == '10'">
                 	<strong>Motivo</strong> {{ afiliado.tipoBaja.nombre }}
