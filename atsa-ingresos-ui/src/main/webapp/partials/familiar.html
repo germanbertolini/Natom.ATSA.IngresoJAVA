@@ -1,4 +1,8 @@
 <div ng-controller="FamiliarController">
+        <!-- GERMAN 2022-06-05 - HIDDEN PARA CONTROL DE QUE NO HAYA DOBLE BENEFICIARIO SEGURO DE VIDA -->
+        <input type="hidden" id="tieneBeneficiarioSeguroVida" name="tieneBeneficiarioSeguroVida" value="{{ parameters.tieneBeneficiarioSeguroVida }}" />
+        <input type="hidden" id="beneficiarioPersonaId" name="beneficiarioPersonaId" value="{{ parameters.beneficiarioPersonaId }}" />
+        
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -77,6 +81,48 @@
 						<input type="text" id="familiar-numero-documento" name="familiar-numero-documento" ng-model="familiar.familiar.documento" class="form-control" required ng-minlength="8" ng-change="validateDNI()"/>
 					</div>
 				</div>
+                            
+                                <div class="row" ng-if="familiar.relacion.id === 10">
+                                    <div class="form-group col-sm-3">
+                                        <label for="familiar-domicilio">Domicilio</label>
+                                        <input id="familiar-domicilio" name="familiar-domicilio" ng-model="familiar.familiar.domicilio" class="form-control" required />
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="familiar-localidad">Localidad</label>
+                                        <input id="familiar-localidad" name="familiar-localidad" ng-model="familiar.familiar.localidad" class="form-control" required />
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="familiar-telefono">Telefono</label>
+                                        <input id="familiar-telefono" name="familiar-telefono" ng-model="familiar.familiar.telefono" class="form-control" required />
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label for="familiar-email">Email</label>
+                                        <input id="familiar-email" name="familiar-email" ng-model="familiar.familiar.email" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row" ng-if="familiar.relacion.id === 10">
+                                    <div class="form-group col-sm-4">
+                                        <label for="familiar-parentesco">Parentesco</label>
+                                        <input id="familiar-parentesco" name="familiar-parentesco" ng-model="familiar.familiar.parentesco" class="form-control" required />
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="estado-civil">Estado civil:</label>
+
+                                        <select id="estado-civil" name="estado-civil" ng-model="familiar.familiar.estadoCivil" class="form-control">
+                                            <option value="SOLTERO">Soltero/a</option>
+                                            <option value="CASADO">Casado/a</option>
+                                            <option value="DIVORCIADO">Divorciado/a</option>
+                                            <option value="VIUDO">Viudo/a</option>
+                                            <option value="SEPARADO">Separado/a</option>
+                                            <option value="CONCUBINATO">Concuvino/a</option>
+                                            <option value="SIN_DATOS">Sin datos</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="familiar-profesion">Profesión</label>
+                                        <input id="familiar-profesion" name="familiar-profesion" ng-model="familiar.familiar.profesion" class="form-control" />
+                                    </div>
+                                </div>
 				
 				
 				</fieldset>
