@@ -109,6 +109,10 @@ public class Persona implements Serializable, DBEntity {
         @Basic
 	@Column(name = "EMAIL", nullable = true)
 	private String email;
+        
+        @Basic
+	@Column(name = "PARENTESCO", nullable = true)
+	private String parentesco;
 
 	@ManyToOne
     @JoinColumn(name = "ESTADO_ID", referencedColumnName = "ID")
@@ -328,6 +332,14 @@ public class Persona implements Serializable, DBEntity {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+        
+        public String getParentesco() {
+		return parentesco;
+	}
+
+	public void setParentesco(String parentesco) {
+		this.parentesco = parentesco;
 	}
 
 	public Estado getEstado() {

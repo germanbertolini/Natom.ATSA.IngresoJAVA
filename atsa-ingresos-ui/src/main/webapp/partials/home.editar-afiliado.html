@@ -201,7 +201,7 @@
 					<a href="#" ng-click="seleccionarSeccion('afiliado')">Afiliado</a>
 				</li>
 				<li ng-class="{ active:seccionSeleccionada('familiares') }">
-					<a href="#" ng-click="seleccionarSeccion('familiares')">Familiares</a>
+					<a href="#" ng-click="seleccionarSeccion('familiares')">Familiares / Beneficiarios</a>
 				</li>
 				<li ng-class="{ active:seccionSeleccionada('notas') }">
 				    <a href="#" ng-click="seleccionarSeccion('notas')">Notas</a>
@@ -495,7 +495,7 @@
             <div class="panel" ng-show="seccionSeleccionada('familiares')">
                 <fieldset>
 	                <p class="table-toolbar">
-		                <a class="btn btn-primary btn-sm" ng-click="editarFamiliar()" ng-disabled="!modoEdicion">Agregar familiar</a>
+		                <a class="btn btn-primary btn-sm" ng-click="editarFamiliar()" ng-disabled="!modoEdicion">Agregar familiar / beneficiario</a>
 					</p>
 				
 	        	    <table class="table table-stripped">
@@ -526,8 +526,13 @@
 	                                    </a>
 	                                </p>
 	                                <p class="table-buttons" ng-hide="modoEdicion">
-	                                	<a class="btn btn-success btn-xs" href="#" title="Editar" ng-click="editarFamiliar(familiar, true);">
+	                                	<a class="btn btn-success btn-xs" href="#" title="Editar" ng-click="editarFamiliar(familiar);">
 	                                		<span class="glyphicon glyphicon-eye-open"></span>
+	                                	</a>
+	                                </p>
+                                        <p class="table-buttons" ng-hide="familiar.relacion.id !== 10">
+	                                	<a class="btn btn-info btn-xs" href="#" title="Imprimir seguro de vida" ng-click="imprimirSeguroVida(familiar, true);">
+	                                		<span class="glyphicon glyphicon-print"></span>
 	                                	</a>
 	                                </p>
 	                            </td>
