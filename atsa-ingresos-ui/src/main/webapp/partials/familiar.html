@@ -96,16 +96,20 @@
                                         <input id="familiar-telefono" name="familiar-telefono" ng-model="familiar.familiar.telefono" class="form-control" required />
                                     </div>
                                     <div class="form-group col-sm-3">
-                                        <label for="familiar-email">Email</label>
-                                        <input id="familiar-email" name="familiar-email" ng-model="familiar.familiar.email" class="form-control" />
+                                        <label for="familiar-celular">Celular</label>
+                                        <input id="familiar-celular" name="familiar-celular" ng-model="familiar.familiar.celular" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row" ng-if="familiar.relacion.id === 10">
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-3">
+                                        <label for="familiar-email">Email</label>
+                                        <input id="familiar-email" name="familiar-email" ng-model="familiar.familiar.email" class="form-control" />
+                                    </div>
+                                    <div class="form-group col-sm-3">
                                         <label for="familiar-parentesco">Parentesco</label>
                                         <input id="familiar-parentesco" name="familiar-parentesco" ng-model="familiar.familiar.parentesco" class="form-control" required />
                                     </div>
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-3">
                                         <label for="estado-civil">Estado civil:</label>
 
                                         <select id="estado-civil" name="estado-civil" ng-model="familiar.familiar.estadoCivil" class="form-control">
@@ -118,7 +122,7 @@
                                             <option value="SIN_DATOS">Sin datos</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-sm-4">
+                                    <div class="form-group col-sm-3">
                                         <label for="familiar-profesion">Profesión</label>
                                         <input id="familiar-profesion" name="familiar-profesion" ng-model="familiar.familiar.profesion" class="form-control" />
                                     </div>

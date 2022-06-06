@@ -705,6 +705,7 @@ atsaControllers.controller('AfiliadosController', ['$scope','$rootScope', 'Afili
 		$scope.editarFamiliar = function (familiar, soloLectura){
                         //GERMAN 2022-06-05: Le mando un flag al modal de si ya existe un beneficiario de seguro de vida
                         var tieneBeneficiarioSeguroVida = false;
+                        var beneficiarioPersonaId = -1;
                         for (var g = 0; g < $scope.familiares.length; g ++) {
                             if ($scope.familiares[g].relacion.id === 10) {
                                 tieneBeneficiarioSeguroVida = true;
